@@ -1,0 +1,486 @@
+[
+  {
+    "id": "eval-00-david",
+    "audio": "eval-00-david.wav",
+    "spoken_text": "Twenty newtons is the net force on the block.",
+    "inserted_text": "20 N is the net force on the block.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-00-zira",
+    "audio": "eval-00-zira.wav",
+    "spoken_text": "Twenty newtons is the net force on the block.",
+    "inserted_text": "20 N is the net force on the block.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-01-david",
+    "audio": "eval-01-david.wav",
+    "spoken_text": "The current is three point five amperes.",
+    "inserted_text": "The current is 3.5 A.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-01-zira",
+    "audio": "eval-01-zira.wav",
+    "spoken_text": "The current is three point five amperes.",
+    "inserted_text": "The current is 3.5 A.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-02-david",
+    "audio": "eval-02-david.wav",
+    "spoken_text": "The speed is fifteen metres per second.",
+    "inserted_text": "The speed is 50 m/s.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-02-zira",
+    "audio": "eval-02-zira.wav",
+    "spoken_text": "The speed is fifteen metres per second.",
+    "inserted_text": "The speed is 50 m/s.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-03-david",
+    "audio": "eval-03-david.wav",
+    "spoken_text": "The resistance is forty ohms.",
+    "inserted_text": "The resistance is 14 ohms.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-03-zira",
+    "audio": "eval-03-zira.wav",
+    "spoken_text": "The resistance is forty ohms.",
+    "inserted_text": "The resistance is 14 ohms.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-04-david",
+    "audio": "eval-04-david.wav",
+    "spoken_text": "The reaction is not reversible at room temperature.",
+    "inserted_text": "The reaction is reversible at room temperature.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-04-zira",
+    "audio": "eval-04-zira.wav",
+    "spoken_text": "The reaction is not reversible at room temperature.",
+    "inserted_text": "The reaction is reversible at room temperature.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-05-david",
+    "audio": "eval-05-david.wav",
+    "spoken_text": "Friction never acts in the direction of motion here.",
+    "inserted_text": "Friction acts in the direction of motion here.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-05-zira",
+    "audio": "eval-05-zira.wav",
+    "spoken_text": "Friction never acts in the direction of motion here.",
+    "inserted_text": "Friction acts in the direction of motion here.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-06-david",
+    "audio": "eval-06-david.wav",
+    "spoken_text": "The mass is two kilograms.",
+    "inserted_text": "The mass is 2 kg.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-06-zira",
+    "audio": "eval-06-zira.wav",
+    "spoken_text": "The mass is two kilograms.",
+    "inserted_text": "The mass is 2 kg.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-07-david",
+    "audio": "eval-07-david.wav",
+    "spoken_text": "The mass is two kilograms.",
+    "inserted_text": "The mass is 2 g.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-07-zira",
+    "audio": "eval-07-zira.wav",
+    "spoken_text": "The mass is two kilograms.",
+    "inserted_text": "The mass is 2 g.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-08-david",
+    "audio": "eval-08-david.wav",
+    "spoken_text": "The length is five centimetres.",
+    "inserted_text": "The length is 5 metres.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-08-zira",
+    "audio": "eval-08-zira.wav",
+    "spoken_text": "The length is five centimetres.",
+    "inserted_text": "The length is 5 metres.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-09-david",
+    "audio": "eval-09-david.wav",
+    "spoken_text": "Force equals mass times acceleration.",
+    "inserted_text": "Force equals mass plus acceleration.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-09-zira",
+    "audio": "eval-09-zira.wav",
+    "spoken_text": "Force equals mass times acceleration.",
+    "inserted_text": "Force equals mass plus acceleration.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-10-david",
+    "audio": "eval-10-david.wav",
+    "spoken_text": "Voltage equals current times resistance.",
+    "inserted_text": "Voltage equals current divided by resistance.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-10-zira",
+    "audio": "eval-10-zira.wav",
+    "spoken_text": "Voltage equals current times resistance.",
+    "inserted_text": "Voltage equals current divided by resistance.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-11-david",
+    "audio": "eval-11-david.wav",
+    "spoken_text": "Pressure increases when the volume decreases.",
+    "inserted_text": "Pressure increases when the volume increases.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-11-zira",
+    "audio": "eval-11-zira.wav",
+    "spoken_text": "Pressure increases when the volume decreases.",
+    "inserted_text": "Pressure increases when the volume increases.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-12-david",
+    "audio": "eval-12-david.wav",
+    "spoken_text": "The wave is transverse, not longitudinal.",
+    "inserted_text": "The wave is longitudinal, not transverse.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-12-zira",
+    "audio": "eval-12-zira.wav",
+    "spoken_text": "The wave is transverse, not longitudinal.",
+    "inserted_text": "The wave is longitudinal, not transverse.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-13-david",
+    "audio": "eval-13-david.wav",
+    "spoken_text": "Um, the energy is conserved in this collision.",
+    "inserted_text": "The energy is conserved in this collision.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-13-zira",
+    "audio": "eval-13-zira.wav",
+    "spoken_text": "Um, the energy is conserved in this collision.",
+    "inserted_text": "The energy is conserved in this collision.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-14-david",
+    "audio": "eval-14-david.wav",
+    "spoken_text": "The temperature rose by twelve degrees.",
+    "inserted_text": "The temperature rose by 12°.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-14-zira",
+    "audio": "eval-14-zira.wav",
+    "spoken_text": "The temperature rose by twelve degrees.",
+    "inserted_text": "The temperature rose by 12°.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-15-david",
+    "audio": "eval-15-david.wav",
+    "spoken_text": "The beam deflects by two millimetres.",
+    "inserted_text": "The beam deflects by two millimetres.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-15-zira",
+    "audio": "eval-15-zira.wav",
+    "spoken_text": "The beam deflects by two millimetres.",
+    "inserted_text": "The beam deflects by two millimetres.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-16-david",
+    "audio": "eval-16-david.wav",
+    "spoken_text": "Entropy of an isolated system does not decrease.",
+    "inserted_text": "Entropy of an isolated system does not decrease.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-16-zira",
+    "audio": "eval-16-zira.wav",
+    "spoken_text": "Entropy of an isolated system does not decrease.",
+    "inserted_text": "Entropy of an isolated system does not decrease.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-17-david",
+    "audio": "eval-17-david.wav",
+    "spoken_text": "The frequency is fifty hertz.",
+    "inserted_text": "The frequency is 15 Hz.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-17-zira",
+    "audio": "eval-17-zira.wav",
+    "spoken_text": "The frequency is fifty hertz.",
+    "inserted_text": "The frequency is 15 Hz.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-18-david",
+    "audio": "eval-18-david.wav",
+    "spoken_text": "Heat flows from the hot body to the cold body.",
+    "inserted_text": "Heat flows from the cold body to the hot body.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-18-zira",
+    "audio": "eval-18-zira.wav",
+    "spoken_text": "Heat flows from the hot body to the cold body.",
+    "inserted_text": "Heat flows from the cold body to the hot body.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-19-david",
+    "audio": "eval-19-david.wav",
+    "spoken_text": "The sum of the angles is one hundred and eighty degrees.",
+    "inserted_text": "The sum of the angles is 180 degrees.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-19-zira",
+    "audio": "eval-19-zira.wav",
+    "spoken_text": "The sum of the angles is one hundred and eighty degrees.",
+    "inserted_text": "The sum of the angles is 180 degrees.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-20-david",
+    "audio": "eval-20-david.wav",
+    "spoken_text": "The efficiency is sixty percent.",
+    "inserted_text": "The efficiency is 60%.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-20-zira",
+    "audio": "eval-20-zira.wav",
+    "spoken_text": "The efficiency is sixty percent.",
+    "inserted_text": "The efficiency is 60%.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-21-david",
+    "audio": "eval-21-david.wav",
+    "spoken_text": "Acceleration is the rate of change of velocity.",
+    "inserted_text": "Acceleration is the rate of change of velocity.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-21-zira",
+    "audio": "eval-21-zira.wav",
+    "spoken_text": "Acceleration is the rate of change of velocity.",
+    "inserted_text": "Acceleration is the rate of change of velocity.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-22-david",
+    "audio": "eval-22-david.wav",
+    "spoken_text": "The gas is ideal, so the internal energy depends only on temperature.",
+    "inserted_text": "The gas is ideal, so the internal energy depends only on temperature.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-22-zira",
+    "audio": "eval-22-zira.wav",
+    "spoken_text": "The gas is ideal, so the internal energy depends only on temperature.",
+    "inserted_text": "The gas is ideal, so the internal energy depends only on temperature.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "eval-23-david",
+    "audio": "eval-23-david.wav",
+    "spoken_text": "The block does not slide down the incline.",
+    "inserted_text": "The block does slide down the incline.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "eval-23-zira",
+    "audio": "eval-23-zira.wav",
+    "spoken_text": "The block does not slide down the incline.",
+    "inserted_text": "The block does slide down the incline.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  }
+]

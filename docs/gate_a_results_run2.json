@@ -1,0 +1,263 @@
+{
+  "utc": "2026-11-24T21:49:10.556250+00:00",
+  "os": "Windows-10-10.0.26300-SP0",
+  "flow_process": "Wispr Flow.exe",
+  "flow_version_dir": null,
+  "shortcut": "ctrl+win+space",
+  "trials": [
+    {
+      "id": "T0_manual",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": true,
+      "change_events": 2,
+      "first_change_after_stop_s": 35.671,
+      "last_change_after_stop_s": 35.703,
+      "foreground_at_end": true,
+      "text_unchanged_prefix": true,
+      "expected": "The force on the block is twenty newtons, and it does not move.",
+      "max_window_rms": 1137.3,
+      "speech_windows": 0,
+      "speech_detected": false,
+      "verification": null
+    },
+    {
+      "id": "T1_injected",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": false,
+      "change_events": 0,
+      "first_change_after_stop_s": null,
+      "last_change_after_stop_s": null,
+      "foreground_at_end": true,
+      "text_unchanged_prefix": true,
+      "expected": "The force on the block is twenty newtons, and it does not move.",
+      "sendinput_error": null,
+      "turn_seconds": 8.52,
+      "our_capture_samples": 383670,
+      "our_capture_rms": 267.8,
+      "our_capture_dropped_blocks": 0,
+      "max_window_rms": 1197.4,
+      "speech_windows": 0,
+      "speech_detected": false,
+      "flow_windows_before": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "flow_windows_1s_after_shortcut": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "verification": null
+    },
+    {
+      "id": "T2_injected",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": false,
+      "change_events": 0,
+      "first_change_after_stop_s": null,
+      "last_change_after_stop_s": null,
+      "foreground_at_end": false,
+      "text_unchanged_prefix": true,
+      "expected": "The acceleration is ten metres per second squared.",
+      "sendinput_error": null,
+      "turn_seconds": 8.17,
+      "our_capture_samples": 366030,
+      "our_capture_rms": 231.8,
+      "our_capture_dropped_blocks": 0,
+      "max_window_rms": 763.0,
+      "speech_windows": 0,
+      "speech_detected": false,
+      "flow_windows_before": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "flow_windows_1s_after_shortcut": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "verification": null
+    },
+    {
+      "id": "T3_injected",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": false,
+      "change_events": 0,
+      "first_change_after_stop_s": null,
+      "last_change_after_stop_s": null,
+      "foreground_at_end": true,
+      "text_unchanged_prefix": true,
+      "expected": "Bending stress decreases when the moment of inertia increases.",
+      "sendinput_error": null,
+      "turn_seconds": 8.17,
+      "our_capture_samples": 366030,
+      "our_capture_rms": 208.4,
+      "our_capture_dropped_blocks": 0,
+      "max_window_rms": 596.5,
+      "speech_windows": 0,
+      "speech_detected": false,
+      "flow_windows_before": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "flow_windows_1s_after_shortcut": [
+        {
+          "title": "Status",
+          "rect": [
+            640,
+            250,
+            640,
+            769
+          ]
+        },
+        {
+          "title": "Wispr Flow",
+          "rect": [
+            106,
+            10,
+            1708,
+            1008
+          ]
+        }
+      ],
+      "verification": null
+    },
+    {
+      "id": "T4_cancel_esc",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": false,
+      "change_events": 0,
+      "first_change_after_stop_s": null,
+      "last_change_after_stop_s": null,
+      "foreground_at_end": true,
+      "text_unchanged_prefix": true,
+      "expected": "(nothing)"
+    },
+    {
+      "id": "T5_quick_toggle",
+      "auto_foreground": true,
+      "needed_click": false,
+      "waited_s": 0.0,
+      "foreground_ok": true,
+      "inserted": "",
+      "inserted_any": false,
+      "change_events": 0,
+      "first_change_after_stop_s": null,
+      "last_change_after_stop_s": null,
+      "foreground_at_end": true,
+      "text_unchanged_prefix": true,
+      "expected": "(nothing)"
+    }
+  ],
+  "our_capture_device": "Headset (EarPods)",
+  "our_capture_rate": 44100,
+  "verdict": {
+    "flow_pastes_into_qt_editor_manual": true,
+    "manual_speech_detected": false,
+    "injected_trials_with_speech": 0,
+    "injected_trials_with_insertion": 0,
+    "esc_cancel_prevented_insertion": true,
+    "quick_toggle_prevented_insertion": true,
+    "our_capture_dropped_blocks_total": 0
+  },
+  "our_capture_total_dropped_blocks": 0,
+  "our_capture_status_flags": 0
+}

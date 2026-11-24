@@ -1,0 +1,56 @@
+[
+  {
+    "id": "demo-q1",
+    "question_ordinal": 1,
+    "audio": "demo-q1.wav",
+    "spoken_text": "Bending stress sigma equals M times y divided by I. So when the moment of inertia increases, the bending stress decreases.",
+    "inserted_text": "Bending stress σ equals M times y divided by I. So when the moment of inertia increases, the bending stress increases.",
+    "planted": [
+      {
+        "category": "term",
+        "written": "increases",
+        "spoken": "decreases"
+      }
+    ],
+    "label": "DEMO FIXTURE - synthetic SAPI speech; inserted text contains planted test errors"
+  },
+  {
+    "id": "demo-q2",
+    "question_ordinal": 2,
+    "audio": "demo-q2.wav",
+    "spoken_text": "The acceleration is ten metres per second squared, because twenty newtons divided by two kilograms gives ten.",
+    "inserted_text": "The acceleration is 10 m/s², because 20 N divided by 2 kg gives 15.",
+    "planted": [
+      {
+        "category": "numeric",
+        "written": "15",
+        "spoken": "ten"
+      }
+    ],
+    "label": "DEMO FIXTURE - synthetic SAPI speech; inserted text contains planted test errors"
+  },
+  {
+    "id": "demo-q3",
+    "question_ordinal": 3,
+    "audio": "demo-q3.wav",
+    "spoken_text": "The velocity does not stay constant. It rises from zero to four metres per second, and then falls to one.",
+    "inserted_text": "The velocity does stay constant. It rises from 0 to 4 m/s, and then falls to 1.",
+    "planted": [
+      {
+        "category": "negation",
+        "written": "",
+        "spoken": "not"
+      }
+    ],
+    "label": "DEMO FIXTURE - synthetic SAPI speech; inserted text contains planted test errors"
+  },
+  {
+    "id": "demo-q4",
+    "question_ordinal": 4,
+    "audio": "demo-q4.wav",
+    "spoken_text": "The sensor measures the output of the plant and feeds it back to the controller.",
+    "inserted_text": "The sensor measures the output of the plant and feeds it back to the controller.",
+    "planted": [],
+    "label": "DEMO FIXTURE - synthetic SAPI speech; inserted text contains planted test errors"
+  }
+]

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+dist/
+models/_download/
+models/vosk-model-*/
+.pytest_cache/
+*.swarsub
+*.examiner-key.pem
+# never commit secrets or local user data
+*.dpapi
+secrets/
+local.key
+.env
+*.swar

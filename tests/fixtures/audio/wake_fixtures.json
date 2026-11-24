@@ -1,0 +1,142 @@
+[
+  {
+    "id": "wake-00-david",
+    "audio": "wake-00-david.wav",
+    "text": "Hey Swar, start my examination.",
+    "expect": "start_exam",
+    "voice": "David"
+  },
+  {
+    "id": "wake-00-zira",
+    "audio": "wake-00-zira.wav",
+    "text": "Hey Swar, start my examination.",
+    "expect": "start_exam",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-01-david",
+    "audio": "wake-01-david.wav",
+    "text": "Hey Swar, read question one.",
+    "expect": "read_question",
+    "voice": "David"
+  },
+  {
+    "id": "wake-01-zira",
+    "audio": "wake-01-zira.wav",
+    "text": "Hey Swar, read question one.",
+    "expect": "read_question",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-02-david",
+    "audio": "wake-02-david.wav",
+    "text": "Hey Swar, finish writing.",
+    "expect": "finish_writing",
+    "voice": "David"
+  },
+  {
+    "id": "wake-02-zira",
+    "audio": "wake-02-zira.wav",
+    "text": "Hey Swar, finish writing.",
+    "expect": "finish_writing",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-03-david",
+    "audio": "wake-03-david.wav",
+    "text": "Hey Swar.",
+    "expect": "wake_only",
+    "voice": "David"
+  },
+  {
+    "id": "wake-03-zira",
+    "audio": "wake-03-zira.wav",
+    "text": "Hey Swar.",
+    "expect": "wake_only",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-04-david",
+    "audio": "wake-04-david.wav",
+    "text": "Hey Swar, next question.",
+    "expect": "next_question",
+    "voice": "David"
+  },
+  {
+    "id": "wake-04-zira",
+    "audio": "wake-04-zira.wav",
+    "text": "Hey Swar, next question.",
+    "expect": "next_question",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-05-david",
+    "audio": "wake-05-david.wav",
+    "text": "Hey Swar, play the original.",
+    "expect": "play_original",
+    "voice": "David"
+  },
+  {
+    "id": "wake-05-zira",
+    "audio": "wake-05-zira.wav",
+    "text": "Hey Swar, play the original.",
+    "expect": "play_original",
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-06-david",
+    "audio": "wake-06-david.wav",
+    "text": "The stress in the beam is proportional to the moment.",
+    "expect": null,
+    "voice": "David"
+  },
+  {
+    "id": "wake-06-zira",
+    "audio": "wake-06-zira.wav",
+    "text": "The stress in the beam is proportional to the moment.",
+    "expect": null,
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-07-david",
+    "audio": "wake-07-david.wav",
+    "text": "Hey, start the engine and check the oil.",
+    "expect": null,
+    "voice": "David"
+  },
+  {
+    "id": "wake-07-zira",
+    "audio": "wake-07-zira.wav",
+    "text": "Hey, start the engine and check the oil.",
+    "expect": null,
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-08-david",
+    "audio": "wake-08-david.wav",
+    "text": "Say hello to the class before we begin.",
+    "expect": null,
+    "voice": "David"
+  },
+  {
+    "id": "wake-08-zira",
+    "audio": "wake-08-zira.wav",
+    "text": "Say hello to the class before we begin.",
+    "expect": null,
+    "voice": "Zira"
+  },
+  {
+    "id": "wake-09-david",
+    "audio": "wake-09-david.wav",
+    "text": "The star is very bright tonight.",
+    "expect": null,
+    "voice": "David"
+  },
+  {
+    "id": "wake-09-zira",
+    "audio": "wake-09-zira.wav",
+    "text": "The star is very bright tonight.",
+    "expect": null,
+    "voice": "Zira"
+  }
+]

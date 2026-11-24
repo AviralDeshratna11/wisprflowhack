@@ -1,0 +1,282 @@
+[
+  {
+    "id": "heldout-00-david",
+    "audio": "heldout-00-david.wav",
+    "spoken_text": "The car travels thirty kilometres in half an hour.",
+    "inserted_text": "The car travels 30 km in half an hour.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-00-zira",
+    "audio": "heldout-00-zira.wav",
+    "spoken_text": "The car travels thirty kilometres in half an hour.",
+    "inserted_text": "The car travels 30 km in half an hour.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-01-david",
+    "audio": "heldout-01-david.wav",
+    "spoken_text": "The car travels thirty kilometres in half an hour.",
+    "inserted_text": "The car travels 13 km in half an hour.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-01-zira",
+    "audio": "heldout-01-zira.wav",
+    "spoken_text": "The car travels thirty kilometres in half an hour.",
+    "inserted_text": "The car travels 13 km in half an hour.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-02-david",
+    "audio": "heldout-02-david.wav",
+    "spoken_text": "Kinetic energy is half m v squared.",
+    "inserted_text": "Kinetic energy is half m v squared.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-02-zira",
+    "audio": "heldout-02-zira.wav",
+    "spoken_text": "Kinetic energy is half m v squared.",
+    "inserted_text": "Kinetic energy is half m v squared.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-03-david",
+    "audio": "heldout-03-david.wav",
+    "spoken_text": "The current does not depend on the length of the wire.",
+    "inserted_text": "The current does depend on the length of the wire.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-03-zira",
+    "audio": "heldout-03-zira.wav",
+    "spoken_text": "The current does not depend on the length of the wire.",
+    "inserted_text": "The current does depend on the length of the wire.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-04-david",
+    "audio": "heldout-04-david.wav",
+    "spoken_text": "Power equals work divided by time.",
+    "inserted_text": "Power equals work times time.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-04-zira",
+    "audio": "heldout-04-zira.wav",
+    "spoken_text": "Power equals work divided by time.",
+    "inserted_text": "Power equals work times time.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-05-david",
+    "audio": "heldout-05-david.wav",
+    "spoken_text": "The density of water is one thousand kilograms per cubic metre.",
+    "inserted_text": "The density of water is 1000 kg per cubic metre.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-05-zira",
+    "audio": "heldout-05-zira.wav",
+    "spoken_text": "The density of water is one thousand kilograms per cubic metre.",
+    "inserted_text": "The density of water is 1000 kg per cubic metre.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-06-david",
+    "audio": "heldout-06-david.wav",
+    "spoken_text": "The magnetic field is strongest at the poles.",
+    "inserted_text": "The magnetic field is weakest at the poles.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-06-zira",
+    "audio": "heldout-06-zira.wav",
+    "spoken_text": "The magnetic field is strongest at the poles.",
+    "inserted_text": "The magnetic field is weakest at the poles.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-07-david",
+    "audio": "heldout-07-david.wav",
+    "spoken_text": "The output voltage is twelve volts.",
+    "inserted_text": "The output voltage is 12 V.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-07-zira",
+    "audio": "heldout-07-zira.wav",
+    "spoken_text": "The output voltage is twelve volts.",
+    "inserted_text": "The output voltage is 12 V.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-08-david",
+    "audio": "heldout-08-david.wav",
+    "spoken_text": "The output voltage is twelve volts.",
+    "inserted_text": "The output voltage is 12 A.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-08-zira",
+    "audio": "heldout-08-zira.wav",
+    "spoken_text": "The output voltage is twelve volts.",
+    "inserted_text": "The output voltage is 12 A.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-09-david",
+    "audio": "heldout-09-david.wav",
+    "spoken_text": "Light travels faster in air than in glass.",
+    "inserted_text": "Light travels faster in air than in glass.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-09-zira",
+    "audio": "heldout-09-zira.wav",
+    "spoken_text": "Light travels faster in air than in glass.",
+    "inserted_text": "Light travels faster in air than in glass.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-10-david",
+    "audio": "heldout-10-david.wav",
+    "spoken_text": "The resistance doubles when the length doubles.",
+    "inserted_text": "The resistance halves when the length doubles.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-10-zira",
+    "audio": "heldout-10-zira.wav",
+    "spoken_text": "The resistance doubles when the length doubles.",
+    "inserted_text": "The resistance halves when the length doubles.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-11-david",
+    "audio": "heldout-11-david.wav",
+    "spoken_text": "Sound cannot travel through a vacuum.",
+    "inserted_text": "Sound can travel through a vacuum.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-11-zira",
+    "audio": "heldout-11-zira.wav",
+    "spoken_text": "Sound cannot travel through a vacuum.",
+    "inserted_text": "Sound can travel through a vacuum.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-12-david",
+    "audio": "heldout-12-david.wav",
+    "spoken_text": "The spring constant is two hundred newtons per metre.",
+    "inserted_text": "The spring constant is 200 N/m.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-12-zira",
+    "audio": "heldout-12-zira.wav",
+    "spoken_text": "The spring constant is two hundred newtons per metre.",
+    "inserted_text": "The spring constant is 200 N/m.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout-13-david",
+    "audio": "heldout-13-david.wav",
+    "spoken_text": "Momentum is conserved in all collisions.",
+    "inserted_text": "Momentum is conserved in all collisions.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout-13-zira",
+    "audio": "heldout-13-zira.wav",
+    "spoken_text": "Momentum is conserved in all collisions.",
+    "inserted_text": "Momentum is conserved in all collisions.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  }
+]

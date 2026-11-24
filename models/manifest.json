@@ -1,0 +1,13 @@
+{
+  "models": [
+    {
+      "name": "vosk-model-small-en-us-0.15",
+      "purpose": "local command recognition, wake-phrase approximation, independent verification hypothesis",
+      "url": "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip",
+      "sha256": "30F26242C4EB449F948E42CB302DD7A686CB29A3423A8367F99FF41780942498",
+      "size_bytes": 41205931,
+      "license": "Apache-2.0 (Vosk models page lists small en-us 0.15 under Apache 2.0) - re-verify before redistribution",
+      "redistributed_in_installer": true
+    }
+  ]
+}
