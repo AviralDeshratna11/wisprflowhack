@@ -2,7 +2,6 @@
 actual waveform, revision history. No cheating scores. Evidence opens are logged."""
 from __future__ import annotations
 
-import io
 import json
 import logging
 from datetime import datetime, timezone
@@ -16,8 +15,10 @@ from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QLabel, QListWidget, QL
 
 from swarlekhak.audio.recorder import read_wav
 from swarlekhak.config import data_dir
-from swarlekhak.export.submission import SubmissionView, decrypt_turn_audio, open_submission
+from swarlekhak.export.submission import SubmissionView, audio_index, decrypt_audio_entry, open_submission
+from swarlekhak.engines.layout import BLOCK_TITLES, block_visual, interleave
 from swarlekhak.ui import theme
+from html import escape
 
 log = logging.getLogger(__name__)
 
@@ -83,6 +84,7 @@ class ExaminerWindow(QMainWindow):
             top.addWidget(b)
         v.addLayout(top)
         self.tabs = QTabWidget()
+        self.tabs.setAccessibleName("Examiner review sections")
         self.integrity = QTextBrowser()
         self.integrity.setAccessibleName("Integrity status")
         self.answers = QTextBrowser()
@@ -153,12 +155,16 @@ class ExaminerWindow(QMainWindow):
         for a in self.view.answers["answers"]:
             html.append(f"<h3>Question {a['ordinal']}</h3><p><i>{a['question_text']}</i></p>")
             html.append(f"<p>Input sources: {', '.join(a.get('input_sources', [])) or 'none'}</p>")
-            html.append("<p>" + (a["text"].replace("\n", "<br>") or "(no text)") + "</p>")
-            for b in a.get("blocks", []):
-                if b["type"] == "equation":
-                    html.append(f"<p>Equation: {b['linear']} &nbsp; (LaTeX {b['latex']})</p>")
-                elif b["type"] == "diagram":
-                    html.append("<p>Diagram:<br>" + b.get("adjacency", "").replace("\n", "<br>") + "</p>")
+            seq = interleave(a["text"], a.get("blocks", []))
+            if not seq:
+                html.append("<p>(no answer)</p>")
+            for kind, item in seq:
+                if kind == "text":
+                    html.append(f"<p>{escape(item)}</p>")
+                else:
+                    title = BLOCK_TITLES.get(item["type"], item["type"])
+                    html.append(f"<p><b>{title}:</b><br><span style='font-family:Consolas'>"
+                                f"{escape(block_visual(item)).replace(chr(10), '<br>')}</span></p>")
         self.answers.setHtml("".join(html))
         self.history.clear()
         for r in self.view.revisions["revisions"]:
@@ -181,17 +187,29 @@ class ExaminerWindow(QMainWindow):
             self.key_pem = Path(path).read_bytes()
             self._select(self.turns.currentItem(), None)
 
-    def _audio(self, turn_id: str):
-        if turn_id in self.audio_cache:
-            return self.audio_cache[turn_id]
+    def _audio(self, entry_id: str):
+        if entry_id in self.audio_cache:
+            return self.audio_cache[entry_id]
         if not self.view or not self.key_pem:
             return None
-        if f"encrypted_audio/{turn_id}.bin" not in self.view.files:
+        if f"encrypted_audio/{entry_id}.bin" not in self.view.files:
             return None
-        wav = decrypt_turn_audio(self.view, turn_id, self.key_pem)
-        self._audit("evidence_decrypted", turn_id=turn_id)
-        self.audio_cache[turn_id] = read_wav(wav)
-        return self.audio_cache[turn_id]
+        wav = decrypt_audio_entry(self.view, entry_id, self.key_pem)
+        self._audit("evidence_decrypted", entry=entry_id)
+        self.audio_cache[entry_id] = read_wav(wav)
+        return self.audio_cache[entry_id]
+
+    def _entry_for(self, turn: dict, review: dict | None) -> tuple[str | None, tuple[float, float] | None]:
+        """Which encrypted audio entry to show, and where its highlight is (selective disclosure aware)."""
+        idx = audio_index(self.view) if self.view else []
+        if any(e["kind"] == "turn" and e["turn_id"] == turn["id"] for e in idx):
+            clip = (review["clip"]["start"], review["clip"]["end"]) if review else None
+            return turn["id"], clip
+        if review:
+            for e in idx:
+                if e["kind"] == "clip" and e.get("review_id") == review["id"]:
+                    return e["id"], None   # the clip *is* the disclosed passage
+        return None, None
 
     def _select(self, item, _prev) -> None:
         if not item:
@@ -201,21 +219,26 @@ class ExaminerWindow(QMainWindow):
         lines = [f"<p>Turn {t['id']}<br>Source: {t['source']}<br>Status: {t['status']}<br>"
                  f"Revision before: {t['revision_before']}<br>Revision after: {t['revision_after']}</p>"]
         clip = None
+        entry, highlight = self._entry_for(t, r)
         if r:
             clip = (r["clip"]["start"], r["clip"]["end"])
             lines.append(f"<p><b>Review ({r['status']})</b>: {r['category']}<br>Written: {r['written'] or '(nothing)'}"
                          f"<br>Local ASR heard: {r['heard'] or '(nothing)'}<br>Clip {clip[0]:.2f}-{clip[1]:.2f} s"
                          f"{' (approximate)' if r['clip'].get('approximate') else ''}<br>Methods: {r['methods']}</p>")
-        try:
-            audio = self._audio(t["id"])
-        except Exception as exc:
-            audio = None
-            lines.append(f"<p><b>Audio could not be decrypted:</b> {exc}</p>")
-        if audio is None and not self.key_pem:
-            lines.append("<p>Load the examiner key to open the encrypted evidence audio.</p>")
+        audio = None
+        if entry is None:
+            lines.append(f"<p>No audio for this item was disclosed (policy: "
+                         f"{self.view.manifest.get('audio_disclosure', 'full')}).</p>")
+        else:
+            try:
+                audio = self._audio(entry)
+            except Exception as exc:
+                lines.append(f"<p><b>Audio could not be decrypted:</b> {exc}</p>")
+            if audio is None and not self.key_pem:
+                lines.append("<p>Load the examiner key to open the encrypted evidence audio.</p>")
         self.detail.setHtml("".join(lines))
         if audio:
-            self.wave.set_audio(audio[0], audio[1], clip)
+            self.wave.set_audio(audio[0], audio[1], highlight)
         else:
             self.wave.set_audio(None, 16000)
 
@@ -224,12 +247,12 @@ class ExaminerWindow(QMainWindow):
         if not item or not self.player:
             return
         d = item.data(Qt.UserRole)
-        audio = self._audio(d["turn"]["id"])
+        entry, highlight = self._entry_for(d["turn"], d["review"])
+        audio = self._audio(entry) if entry else None
         if not audio:
             return
         pcm, rate = audio
-        if clip_only and d["review"]:
-            c = d["review"]["clip"]
-            pcm = pcm[int(c["start"] * rate):int(c["end"] * rate)]
+        if clip_only and highlight:
+            pcm = pcm[int(highlight[0] * rate):int(highlight[1] * rate)]
         self._audit("evidence_played", turn_id=d["turn"]["id"], clip_only=clip_only)
         self.player.play(pcm, rate)

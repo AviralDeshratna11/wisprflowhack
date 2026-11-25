@@ -13,7 +13,7 @@ from dataclasses import dataclass, replace
 
 from swarlekhak.engines.numbers import NUMBER_WORDS, parse_number_words
 
-NORMALIZER_VERSION = "norm-v2"
+NORMALIZER_VERSION = "norm-v3"
 
 FILLERS = {"um", "uh", "er", "erm", "ah", "hmm", "uhm", "umm", "uhh"}
 CONTRACTIONS = {
@@ -53,6 +53,26 @@ UNIT_SYMBOLS = {
     "mol": "mole", "sec": "second", "secs": "second", "mm": "millimetre",
 }
 UNITS = set(UNIT_WORDS.values())
+SI_PREFIXES = ("nano", "micro", "milli", "centi", "kilo", "mega", "giga")
+UNIT_SYMBOLS.update({"kn": "kilonewton", "nm": "nanometre", "khz": "kilohertz", "mhz": "megahertz",
+                     "ghz": "gigahertz", "mg": "milligram", "µm": "micrometre", "kj": "kilojoule",
+                     "kw": "kilowatt", "kv": "kilovolt", "kpa": "kilopascal", "ma": "milliampere"})
+
+
+def unit_word(w: str) -> str | None:
+    """Canonical unit for a unit word, including SI-prefixed forms ('kilonewtons' -> 'kilonewton')."""
+    if w in UNIT_WORDS:
+        return UNIT_WORDS[w]
+    for p in SI_PREFIXES:
+        if w.startswith(p) and w[len(p):] in UNIT_WORDS:
+            return p + UNIT_WORDS[w[len(p):]]
+    return None
+
+
+def is_unit(w: str) -> bool:
+    if w in UNITS or w in UNIT_SYMBOLS.values():
+        return True
+    return any(w.startswith(p) and w[len(p):] in UNITS for p in SI_PREFIXES)
 OPERATOR_SYMBOLS = {
     "+": ["plus"], "=": ["equals"], "×": ["times"], "*": ["times"], "÷": ["divided", "by"],
     "/": ["divided", "by"], "-": ["minus"], "^": ["to", "the", "power", "of"], "<": ["less", "than"],
@@ -136,13 +156,23 @@ def normalize_tokens(toks: list[Tok]) -> list[Tok]:
                 continue
         merged.append(stage[i])
         i += 1
+    # 2b. SI prefix spoken/recognised as its own word: "kilo newtons" -> one unit token
+    joined: list[Tok] = []
+    for t in merged:
+        if joined and joined[-1].text in SI_PREFIXES and t.text in UNIT_WORDS:
+            p = joined.pop()
+            joined.append(Tok(p.text + UNIT_WORDS[t.text], p.start, t.end, p.t0, t.t1,
+                              min((c for c in (p.conf, t.conf) if c is not None), default=None)))
+        else:
+            joined.append(t)
+    merged = joined
     # 3. units: words anywhere, symbols only after a number; "/" between units -> "per"
     out: list[Tok] = []
     for idx, t in enumerate(merged):
         prev_is_num = bool(out) and _is_number(out[-1].text)
-        prev_is_unit = bool(out) and out[-1].text in UNITS
-        if t.text in UNIT_WORDS:
-            out.append(replace(t, text=UNIT_WORDS[t.text]))
+        prev_is_unit = bool(out) and is_unit(out[-1].text)
+        if unit_word(t.text):
+            out.append(replace(t, text=unit_word(t.text)))
         elif t.text in UNIT_SYMBOLS and (prev_is_num or (out and out[-1].text == "per")):
             out.append(replace(t, text=UNIT_SYMBOLS[t.text]))
         elif t.text == "divided" and prev_is_unit and idx + 2 < len(merged) and merged[idx + 1].text == "by" \

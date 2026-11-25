@@ -32,7 +32,8 @@ DEMO_GRAPH = {
 }
 
 
-def make_demo_package(out_dir: Path, exam_id: str = "physics-mock-01") -> tuple[Path, Path]:
+def make_demo_package(out_dir: Path, exam_id: str = "physics-mock-01",
+                      audio_disclosure: str = "full") -> tuple[Path, Path]:
     """Write <out_dir>/<exam_id>.swar and <out_dir>/<exam_id>.examiner-key.pem. Returns both paths."""
     out_dir.mkdir(parents=True, exist_ok=True)
     pem, pub = generate_examiner_keypair()
@@ -45,6 +46,7 @@ def make_demo_package(out_dir: Path, exam_id: str = "physics-mock-01") -> tuple[
             "mode": "mock",
             "recording": "Each dictation turn is recorded as evidence and encrypted. Passive listening is never saved.",
             "allow_typed_input": True,
+            "audio_disclosure": audio_disclosure,  # full | review_clips (selective disclosure) | none
             "allow_structured_math": True,
             "allow_diagrams": True,
             "flow_external_processing_disclosed": True,

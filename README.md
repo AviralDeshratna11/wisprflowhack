@@ -62,6 +62,17 @@ available, add it to *My Voices* from the ElevenLabs Voice Library. Without key/
 voice is used automatically. Saying "Hey Swar" (or Ctrl+Alt+Space) brings up the animated conversation orb; it
 keeps listening a few seconds after each reply - say the next command directly, or "thanks" to close it.
 
+**Structured answers** (inserted after the paragraph you are working on, read back in place, exported to Word):
+"chemical equation two hydrogen two plus oxygen two gives two hydrogen two oxygen" (never balanced);
+"create a table with three columns", "set heading one to time", "row two column one is 4.5", "read row two";
+"add line for each reading", "indent", "read the code" (pseudocode, never executed).
+
+**Examiners:** `python scripts/make_exam_from_pdf.py paper.pdf --exam-id ... --title ...` builds questions from a
+PDF (text only; figures must get an approved description). Set `policy.audio_disclosure` to `full`,
+`review_clips` (only the clips behind review markers leave the student's machine) or `none`.
+
+**Installer:** `scriptsuild.ps1` -> `dist\installer\SwarLekhak-Setup.exe` (per-user, no admin, unsigned).
+
 Keyboard: F2 read question, F5 start writing, F6 finish, Ctrl+PgUp/PgDn navigate, F7 time left,
 F8 mute/unmute, F1 commands; the Command box accepts any spoken command as text.
 

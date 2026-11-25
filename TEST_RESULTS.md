@@ -1,9 +1,36 @@
-# Test results (actually executed, 2026-11-25)
+# Test results (actually executed, 2026-11-25, v0.2.0)
 
 Machine: Windows 11 Home 10.0.26300, Python 3.11.0, CPU only. Devices: Realtek mic array (WASAPI 48 kHz),
-EarPods headset (44.1 kHz, system default during tests). **Wispr Flow not installed.**
+EarPods headset (44.1 kHz, system default during tests). Wispr Flow 1.6.1609 installed but not transcribing.
 
-## 1. Automated suite - `pytest` -> 116 passed, 0 failed (102 in `docs/test_report.txt` + 14 conversation tests)
+## 0. Latest round (v0.2.0) - summary
+- **pytest: 162 passed, 0 failed** (adds structured modes, inline layout, selective disclosure, PDF import,
+  accessibility audit, examiner e2e with a real submission, weak-wake rule, SI units). `ruff` error/unused-name
+  lint: clean. The accessibility audit found two real defects that were fixed: the examiner window failed to
+  import after the disclosure change, and its tab strip had no accessible name.
+- **Benchmark protocol:** every change was tuned on development data; each time a held-out set revealed a gap,
+  a *new* held-out set was written **before** the fix and used for the reported number.
+
+| Set (synthetic SAPI speech) | Used for tuning? | Planted recall | Clean answers flagged | Notes |
+|---|---|---|---|---|
+| Development (52 turns) | yes | 29/29 | 1/23 (4 %) | unchanged |
+| Held-out v1 (28) | no (but seen twice) | 14/14 | 1/14 (7 %), was 21 % | N-best rescoring |
+| Held-out v2 (32) | revealed SI-unit gap | 14/16 | 0/16, was 31 % | missed "refraction"->"reflection" (sound-alike) |
+| **Held-out v3 (32), never tuned** | **no** | **16/16 (CI 0.81-1.00)** | **2/16 = 12.5 % (CI 0.035-0.36)** | both "joules" misheard by local ASR |
+
+| Passive speech (no wake intended) | Used for tuning? | Minutes | False wakes |
+|---|---|---|---|
+| v1 | yes (wake rules) | 14.2 | 12 before ("a sour taste...") -> 0 |
+| v2 | yes (weak-wake rule) | 10.6 | 7 before ("he swore he would finish writing...") -> 0 |
+| **v3, never tuned** | **no** | **9.9** | **0** (95 % upper bound about 18/hour) |
+
+Wake + command clips: 12/12 still recognised. Mean verification time about 2 s per turn (CPU).
+- **Installer:** Inno Setup 6.7.3 installed via winget (hash verified). `SwarLekhak-Setup.exe` (95 MB) built.
+  Silent per-user install -> files, model, Start-menu entry, uninstall registration present, autostart off;
+  installed `--selftest` 5/5; silent uninstall -> 0 files left, registry + Start menu removed, user data kept.
+  **Unsigned**; not tried on a clean VM.
+
+## 1. Automated suite (first round) - 116 passed at that time
 - `tests/unit/test_engines.py` - number words, normalization equivalences and meaning-critical differences,
   proof engine categories/clips, math compiler (accept/reject/LaTeX/read-back), diagram ops, cursor, sonification.
 - `tests/unit/test_core.py` - intent grammar, refusal of web/shell/academic-help phrasing, confirmation flags,
@@ -79,5 +106,6 @@ Not tested: concurrent capture with Wispr Flow.
   unticked checkboxes, non-wrapping consent text, horizontal overflow).
 
 ## 7. Not executed
-Successful live Wispr Flow turns, TTS-echo barge-in test on speakers,
-NVDA walkthrough, tests with visually impaired participants, human speech corpus, CI.
+Successful live Wispr Flow turns (Flow not transcribing yet), live Gemini / ElevenLabs speech (no usable key),
+TTS-echo barge-in test on speakers, NVDA walkthrough, tests with visually impaired participants, human speech
+corpus, clean-VM install, code signing.

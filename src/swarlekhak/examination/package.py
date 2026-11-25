@@ -114,6 +114,9 @@ def _check_manifest(m: dict) -> None:
         raise PackageError("exam_id may contain only letters, digits, - and _")
     if not 1 <= float(m["duration_minutes"]) <= 600:
         raise PackageError("duration_minutes out of range")
+    disc = (m.get("policy") or {}).get("audio_disclosure", "full")
+    if disc not in ("full", "review_clips", "none"):
+        raise PackageError("policy.audio_disclosure must be full, review_clips or none")
     pk = m.get("examiner_public_key")
     if pk is not None and (not isinstance(pk, str) or len(pk) < 40):
         raise PackageError("examiner_public_key invalid")

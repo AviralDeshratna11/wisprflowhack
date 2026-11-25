@@ -22,7 +22,9 @@ from pathlib import Path
 
 from swarlekhak import __version__
 from swarlekhak.contracts import CONTRACT_VERSION
+from swarlekhak.audio.recorder import read_wav, wav_bytes
 from swarlekhak.engines.diagram import Diagram
+from swarlekhak.engines.layout import interleave
 from swarlekhak.engines.evidence_chain import verify_chain
 from swarlekhak.examination.package import ExamPackage, PackageError, read_zip_safely
 from swarlekhak.security import crypto
@@ -47,17 +49,34 @@ def _answers_docx(title: str, questions: list[dict], answers: dict[str, dict], l
         src = labels.get(q["db_id"])
         if src:
             doc.add_paragraph(f"Input sources: {', '.join(sorted(set(src)))}")
-        for para in a["text"].split("\n"):
-            if para.strip():
-                doc.add_paragraph(para)
-        for b in a["blocks"]:
+        for kind, item in interleave(a["text"], a["blocks"]):
+            if kind == "text":
+                doc.add_paragraph(item)
+                continue
+            b = item
             if b["type"] == "equation":
                 doc.add_paragraph(f"Equation: {b['linear']}")
                 doc.add_paragraph(f"LaTeX: {b['latex']}   |   Spoken: {b['spoken']}")
+            elif b["type"] == "chemistry":
+                doc.add_paragraph(f"Chemical equation (as dictated, not balanced): {b['linear']}")
             elif b["type"] == "diagram":
                 doc.add_paragraph("Diagram (adjacency list):")
                 for line in Diagram.from_block(b).adjacency_text().splitlines() or ["(empty)"]:
                     doc.add_paragraph(line, style="List Bullet")
+            elif b["type"] == "table":
+                tbl = doc.add_table(rows=len(b["rows"]) + 1, cols=len(b["columns"]))
+                tbl.style = "Table Grid"
+                for c, h in enumerate(b["columns"]):
+                    tbl.cell(0, c).text = h
+                for r, row in enumerate(b["rows"], 1):
+                    for c, v in enumerate(row):
+                        tbl.cell(r, c).text = v
+            elif b["type"] == "pseudocode":
+                doc.add_paragraph("Pseudocode (as dictated, not executed):")
+                for ln in b["lines"]:
+                    p = doc.add_paragraph("    " * ln["indent"] + ln["text"])
+                    for run in p.runs:
+                        run.font.name = "Consolas"
     buf = io.BytesIO()
     doc.save(buf)
     return buf.getvalue()
@@ -116,20 +135,40 @@ def build_submission(store: Store, session_id: str, exam: ExamPackage, vault, ou
 
     audio_note = "no audio"
     pub = exam.manifest.get("examiner_public_key")
-    audio_index = []
+    disclosure = exam.manifest.get("policy", {}).get("audio_disclosure", "full")
+    index_entries: list[dict] = []
     assets = store.audio_assets(session_id)
-    if assets and pub:
+    if assets and pub and disclosure != "none":
         content_key = crypto.AESGCM.generate_key(bit_length=256)
+        reviews = store.reviews(sid=session_id)
         for a in assets:
             wav = vault.load_wav(a["path"])
             if hashlib.sha256(wav).hexdigest() != a["sha256"]:
                 raise RuntimeError(f"evidence audio for turn {a['turn_id']} failed its integrity check")
-            files[f"encrypted_audio/{a['turn_id']}.bin"] = crypto.encrypt(content_key, wav, a["turn_id"].encode())
-            audio_index.append({"turn_id": a["turn_id"], "sha256_plain": a["sha256"], "sample_rate": a["sample_rate"],
-                                "num_samples": a["num_samples"]})
+            if disclosure == "full":
+                files[f"encrypted_audio/{a['turn_id']}.bin"] = crypto.encrypt(content_key, wav, a["turn_id"].encode())
+                index_entries.append({"id": a["turn_id"], "kind": "turn", "turn_id": a["turn_id"],
+                                      "sha256_plain": a["sha256"], "sample_rate": a["sample_rate"],
+                                      "num_samples": a["num_samples"]})
+                continue
+            # selective disclosure: only the short clips behind review markers leave the student's machine
+            pcm, rate = read_wav(wav)
+            for r in (r for r in reviews if r["turn_id"] == a["turn_id"]):
+                c0, c1 = float(r["clip"]["start"]), float(r["clip"]["end"])
+                piece = wav_bytes(pcm[int(c0 * rate):int(c1 * rate)], rate)
+                cid = f"clip_{r['id']}"
+                files[f"encrypted_audio/{cid}.bin"] = crypto.encrypt(content_key, piece, cid.encode())
+                index_entries.append({"id": cid, "kind": "clip", "turn_id": a["turn_id"], "review_id": r["id"],
+                                      "start": c0, "end": c1, "sha256_plain": hashlib.sha256(piece).hexdigest(),
+                                      "source_turn_sha256": a["sha256"], "sample_rate": rate,
+                                      "num_samples": int((c1 - c0) * rate)})
         files["encrypted_audio/key_wrap.json"] = crypto.dumps(crypto.wrap_key(content_key, pub))
-        files["encrypted_audio/index.json"] = crypto.dumps(audio_index)
-        audio_note = f"{len(assets)} turn recordings encrypted for the examiner key"
+        files["encrypted_audio/index.json"] = crypto.dumps(index_entries)
+        audio_note = (f"{len(assets)} turn recordings encrypted for the examiner key" if disclosure == "full" else
+                      f"selective disclosure: {len(index_entries)} review clips (from {len(assets)} turns) encrypted "
+                      "for the examiner key; full turn audio stays on the student's computer")
+    elif assets and disclosure == "none":
+        audio_note = "audio not disclosed (exam policy audio_disclosure=none); hashes remain in revision history"
     elif assets:
         audio_note = "audio NOT exported: the exam package has no examiner public key"
 
@@ -138,7 +177,7 @@ def build_submission(store: Store, session_id: str, exam: ExamPackage, vault, ou
         "exam_manifest_hash": exam.manifest_hash, "session_id": session_id, "created_utc": utc_now(),
         "app_version": __version__, "contract_version": CONTRACT_VERSION,
         "chain_head": revisions[-1]["hash"] if revisions else None, "chain_valid_at_export": ok,
-        "turn_sources": sorted({t["source"] for t in turns}), "audio": audio_note,
+        "turn_sources": sorted({t["source"] for t in turns}), "audio": audio_note, "audio_disclosure": disclosure,
         "files": {k: hashlib.sha256(v).hexdigest() for k, v in files.items()},
         "limitations": "Local hash chain detects later edits but is not a signature. Not identity proof. "
                        "Local timer is not tamper-resistant.",
@@ -196,11 +235,24 @@ def open_submission(path: str | Path) -> SubmissionView:
                           json.loads(files["verification.json"]), files, checks)
 
 
-def decrypt_turn_audio(view: SubmissionView, turn_id: str, private_key_pem: bytes) -> bytes:
+def audio_index(view: SubmissionView) -> list[dict]:
+    raw = view.files.get("encrypted_audio/index.json")
+    entries = json.loads(raw) if raw else []
+    for e in entries:   # format written before selective disclosure had no id/kind
+        e.setdefault("id", e["turn_id"])
+        e.setdefault("kind", "turn")
+    return entries
+
+
+def decrypt_audio_entry(view: SubmissionView, entry_id: str, private_key_pem: bytes) -> bytes:
     wrap = json.loads(view.files["encrypted_audio/key_wrap.json"])
     key = crypto.unwrap_key(wrap, crypto.load_private_key(private_key_pem))
-    wav = crypto.decrypt(key, view.files[f"encrypted_audio/{turn_id}.bin"], turn_id.encode())
-    index = {e["turn_id"]: e for e in json.loads(view.files["encrypted_audio/index.json"])}
-    if hashlib.sha256(wav).hexdigest() != index[turn_id]["sha256_plain"]:
+    wav = crypto.decrypt(key, view.files[f"encrypted_audio/{entry_id}.bin"], entry_id.encode())
+    index = {e["id"]: e for e in audio_index(view)}
+    if hashlib.sha256(wav).hexdigest() != index[entry_id]["sha256_plain"]:
         raise ValueError("decrypted audio does not match its recorded hash")
     return wav
+
+
+def decrypt_turn_audio(view: SubmissionView, turn_id: str, private_key_pem: bytes) -> bytes:
+    return decrypt_audio_entry(view, turn_id, private_key_pem)

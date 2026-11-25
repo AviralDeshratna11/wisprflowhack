@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from swarlekhak.assistant import intents  # noqa: E402
-from swarlekhak.assistant.orchestrator import build_wake_regex  # noqa: E402
+from swarlekhak.assistant.orchestrator import build_wake_regex, wake_decision  # noqa: E402
 from swarlekhak.audio.asr import VoskTranscriber  # noqa: E402
 from swarlekhak.audio.recorder import read_wav  # noqa: E402
 from swarlekhak.config import VOSK_MODEL_NAME  # noqa: E402
@@ -88,6 +88,38 @@ def gate_d(engine, ev: list[dict]) -> dict:
     }
 
 
+def passive_false_wakes(model_path: Path, wake_rx, pattern: str = "passive-*.wav") -> dict:
+    """Continuous free-form recognition (as the passive listener runs) over long non-wake speech that contains
+    many near-miss phrases ("hey", "swore", "sewer", "star", "sour"...). Synthetic speech only."""
+    import json as _json
+    from vosk import KaldiRecognizer
+    from swarlekhak.audio.asr import load_model
+    model = load_model(model_path)
+    long_dir = FIX.parent / "audio_long"
+    files = sorted(long_dir.glob(pattern))
+    if not files:
+        return {"error": "run scripts/make_fixtures.py --only passive"}
+    secs, triggers, utterances = 0.0, [], 0
+    for f in files:
+        pcm, sr = read_wav(f.read_bytes())
+        secs += len(pcm) / sr
+        rec = KaldiRecognizer(model, 16000)
+        data = pcm.tobytes()
+        for i in range(0, len(data), 3200):   # 100 ms blocks, like the live listener
+            if rec.AcceptWaveform(data[i:i + 3200]):
+                t = _json.loads(rec.Result()).get("text", "")
+                if t:
+                    utterances += 1
+                    if wake_decision(intents.clean(t), wake_rx)[0]:
+                        triggers.append({"file": f.name, "heard": t})
+        t = _json.loads(rec.FinalResult()).get("text", "")
+        if t and wake_decision(intents.clean(t), wake_rx)[0]:
+            triggers.append({"file": f.name, "heard": t})
+    hours = secs / 3600
+    return {"audio_minutes": round(secs / 60, 1), "utterances": utterances, "false_wakes": len(triggers),
+            "false_wakes_per_hour": round(len(triggers) / hours, 1) if hours else None, "examples": triggers[:10]}
+
+
 def main() -> int:
     model = ROOT / "models" / VOSK_MODEL_NAME
     tr = VoskTranscriber(model)
@@ -105,8 +137,8 @@ def main() -> int:
         pcm, sr = read_wav((FIX / f["audio"]).read_bytes())
         hyp = tr.transcribe(pcm)["text"]
         t = intents.clean(hyp)
+        woke, _rest = wake_decision(t, wake_rx)
         m = wake_rx.search(t)
-        woke = bool(m)
         expect_wake = f["expect"] is not None
         if expect_wake and woke:
             tp += 1
@@ -138,11 +170,23 @@ def main() -> int:
     held = json.loads((FIX / "heldout_fixtures.json").read_text(encoding="utf-8"))
     out["gate_d_development"] = gate_d(engine, dev)
     out["gate_d_heldout"] = gate_d(engine, held)
-    dest = ROOT / "docs" / "benchmark_results.json"
+    h2 = FIX / "heldout2_fixtures.json"
+    if h2.exists():
+        out["gate_d_heldout2"] = gate_d(engine, json.loads(h2.read_text(encoding="utf-8")))
+    out["gate_c_passive"] = passive_false_wakes(model, wake_rx)          # used to tune the wake rules
+    out["gate_c_passive_v2"] = passive_false_wakes(model, wake_rx, "passive2-*.wav")   # used for the weak-wake rule
+    out["gate_c_passive_v3"] = passive_false_wakes(model, wake_rx, "passive3-*.wav")   # never tuned on
+    h3 = FIX / "heldout3_fixtures.json"
+    if h3.exists():
+        out["gate_d_heldout3"] = gate_d(engine, json.loads(h3.read_text(encoding="utf-8")))
+    dest = ROOT / "docs" / (sys.argv[1] if len(sys.argv) > 1 else "benchmark_results.json")
     dest.parent.mkdir(exist_ok=True)
     dest.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     summary = {name: {k: v for k, v in out[name].items() if k != "rows"}
-               for name in ("gate_c", "gate_d_development", "gate_d_heldout")}
+               for name in ("gate_c", "gate_c_passive", "gate_c_passive_v2", "gate_c_passive_v3",
+                            "gate_d_development", "gate_d_heldout",
+                            "gate_d_heldout2", "gate_d_heldout3")
+               if name in out}
     print(json.dumps(summary, indent=2))
     return 0
 

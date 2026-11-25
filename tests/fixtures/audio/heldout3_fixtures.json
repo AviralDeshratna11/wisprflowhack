@@ -1,0 +1,322 @@
+[
+  {
+    "id": "heldout3-00-david",
+    "audio": "heldout3-00-david.wav",
+    "spoken_text": "The specific heat capacity of water is about four thousand two hundred joules per kilogram kelvin.",
+    "inserted_text": "The specific heat capacity of water is about 4200 joules per kilogram kelvin.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-00-zira",
+    "audio": "heldout3-00-zira.wav",
+    "spoken_text": "The specific heat capacity of water is about four thousand two hundred joules per kilogram kelvin.",
+    "inserted_text": "The specific heat capacity of water is about 4200 joules per kilogram kelvin.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-01-david",
+    "audio": "heldout3-01-david.wav",
+    "spoken_text": "A transformer cannot change the frequency of the supply.",
+    "inserted_text": "A transformer cannot change the frequency of the supply.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-01-zira",
+    "audio": "heldout3-01-zira.wav",
+    "spoken_text": "A transformer cannot change the frequency of the supply.",
+    "inserted_text": "A transformer cannot change the frequency of the supply.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-02-david",
+    "audio": "heldout3-02-david.wav",
+    "spoken_text": "The projectile reaches its maximum height after three seconds.",
+    "inserted_text": "The projectile reaches its maximum height after 3 seconds.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-02-zira",
+    "audio": "heldout3-02-zira.wav",
+    "spoken_text": "The projectile reaches its maximum height after three seconds.",
+    "inserted_text": "The projectile reaches its maximum height after 3 seconds.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-03-david",
+    "audio": "heldout3-03-david.wav",
+    "spoken_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "inserted_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-03-zira",
+    "audio": "heldout3-03-zira.wav",
+    "spoken_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "inserted_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-04-david",
+    "audio": "heldout3-04-david.wav",
+    "spoken_text": "The lens has a focal length of twenty five centimetres.",
+    "inserted_text": "The lens has a focal length of 25 cm.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-04-zira",
+    "audio": "heldout3-04-zira.wav",
+    "spoken_text": "The lens has a focal length of twenty five centimetres.",
+    "inserted_text": "The lens has a focal length of 25 cm.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-05-david",
+    "audio": "heldout3-05-david.wav",
+    "spoken_text": "Diffusion is faster at higher temperatures.",
+    "inserted_text": "Diffusion is faster at higher temperatures.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-05-zira",
+    "audio": "heldout3-05-zira.wav",
+    "spoken_text": "Diffusion is faster at higher temperatures.",
+    "inserted_text": "Diffusion is faster at higher temperatures.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-06-david",
+    "audio": "heldout3-06-david.wav",
+    "spoken_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "inserted_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-06-zira",
+    "audio": "heldout3-06-zira.wav",
+    "spoken_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "inserted_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-07-david",
+    "audio": "heldout3-07-david.wav",
+    "spoken_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "inserted_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-07-zira",
+    "audio": "heldout3-07-zira.wav",
+    "spoken_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "inserted_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-08-david",
+    "audio": "heldout3-08-david.wav",
+    "spoken_text": "The projectile reaches its maximum height after three seconds.",
+    "inserted_text": "The projectile reaches its maximum height after 13 seconds.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-08-zira",
+    "audio": "heldout3-08-zira.wav",
+    "spoken_text": "The projectile reaches its maximum height after three seconds.",
+    "inserted_text": "The projectile reaches its maximum height after 13 seconds.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-09-david",
+    "audio": "heldout3-09-david.wav",
+    "spoken_text": "A transformer cannot change the frequency of the supply.",
+    "inserted_text": "A transformer can change the frequency of the supply.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-09-zira",
+    "audio": "heldout3-09-zira.wav",
+    "spoken_text": "A transformer cannot change the frequency of the supply.",
+    "inserted_text": "A transformer can change the frequency of the supply.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-10-david",
+    "audio": "heldout3-10-david.wav",
+    "spoken_text": "The lens has a focal length of twenty five centimetres.",
+    "inserted_text": "The lens has a focal length of 25 metres.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-10-zira",
+    "audio": "heldout3-10-zira.wav",
+    "spoken_text": "The lens has a focal length of twenty five centimetres.",
+    "inserted_text": "The lens has a focal length of 25 metres.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-11-david",
+    "audio": "heldout3-11-david.wav",
+    "spoken_text": "Pressure equals force divided by area.",
+    "inserted_text": "Pressure equals force times area.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-11-zira",
+    "audio": "heldout3-11-zira.wav",
+    "spoken_text": "Pressure equals force divided by area.",
+    "inserted_text": "Pressure equals force times area.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-12-david",
+    "audio": "heldout3-12-david.wav",
+    "spoken_text": "Diffusion is faster at higher temperatures.",
+    "inserted_text": "Diffusion is slower at higher temperatures.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-12-zira",
+    "audio": "heldout3-12-zira.wav",
+    "spoken_text": "Diffusion is faster at higher temperatures.",
+    "inserted_text": "Diffusion is slower at higher temperatures.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-13-david",
+    "audio": "heldout3-13-david.wav",
+    "spoken_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "inserted_text": "Isotopes have the same number of electrons but different numbers of neutrons.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-13-zira",
+    "audio": "heldout3-13-zira.wav",
+    "spoken_text": "Isotopes have the same number of protons but different numbers of neutrons.",
+    "inserted_text": "Isotopes have the same number of electrons but different numbers of neutrons.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-14-david",
+    "audio": "heldout3-14-david.wav",
+    "spoken_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "inserted_text": "Kinetic energy is conserved in an inelastic collision.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-14-zira",
+    "audio": "heldout3-14-zira.wav",
+    "spoken_text": "Kinetic energy is not conserved in an inelastic collision.",
+    "inserted_text": "Kinetic energy is conserved in an inelastic collision.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout3-15-david",
+    "audio": "heldout3-15-david.wav",
+    "spoken_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "inserted_text": "The total resistance of two resistors in parallel is more than either resistor.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout3-15-zira",
+    "audio": "heldout3-15-zira.wav",
+    "spoken_text": "The total resistance of two resistors in parallel is less than either resistor.",
+    "inserted_text": "The total resistance of two resistors in parallel is more than either resistor.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  }
+]

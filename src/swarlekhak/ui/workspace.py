@@ -333,18 +333,18 @@ class WorkspaceWindow(QMainWindow):
         self.qlist.setCurrentRow(idx)
 
     def blocks(self, blocks: list[dict]) -> None:
+        from swarlekhak.engines.layout import BLOCK_TITLES, block_spoken, block_visual
         self.items.clear()
         dg = None
-        eq_n = 0
         for b in blocks:
-            if b["type"] == "equation":
-                eq_n += 1
-                it = QListWidgetItem(f"Equation {eq_n}: {b['linear']}    (spoken: {b['spoken']})")
-                it.setData(Qt.AccessibleTextRole, f"Equation {eq_n}: {b['spoken']}")
-                self.items.addItem(it)
-            elif b["type"] == "diagram":
+            if b["type"] == "diagram":
                 dg = b
-                self.items.addItem(QListWidgetItem("Diagram: " + b.get("adjacency", "").replace("\n", "; ")))
+            where = b.get("anchor_paragraph")
+            pos = f" (after paragraph {where})" if where else ""
+            it = QListWidgetItem(f"{BLOCK_TITLES.get(b['type'], b['type'])}{pos}: "
+                                 + block_visual(b).replace("\n", "  /  "))
+            it.setData(Qt.AccessibleTextRole, block_spoken(b) + pos)
+            self.items.addItem(it)
         self.diagram_view.set_block(dg)
 
     def reviews(self, reviews: list[dict]) -> None:

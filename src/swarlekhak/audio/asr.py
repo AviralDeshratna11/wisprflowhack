@@ -51,6 +51,47 @@ class VoskTranscriber:
         self._collect(json.loads(rec.FinalResult()), words, texts)
         return {"text": " ".join(t for t in texts if t), "words": words}
 
+    def alternatives(self, pcm16k: np.ndarray, n: int = 5) -> list[list[list[dict]]]:
+        """N-best per recognised segment: [segment][alternative] -> word dicts (start, end; no conf)."""
+        from vosk import KaldiRecognizer
+        rec = KaldiRecognizer(self._model, 16000)
+        rec.SetWords(True)
+        rec.SetMaxAlternatives(n)
+        segs: list[list[list[dict]]] = []
+
+        def take(res: dict) -> None:
+            alts = []
+            for a in res.get("alternatives", []):
+                ws = [{"word": w["word"], "start": w["start"], "end": w["end"], "conf": 1.0}
+                      for w in a.get("result", [])]
+                if ws:
+                    alts.append(ws)
+            if alts:
+                segs.append(alts)
+        data = pcm16k.astype(np.int16).tobytes()
+        for i in range(0, len(data), 8000):
+            if rec.AcceptWaveform(data[i:i + 8000]):
+                take(json.loads(rec.Result()))
+        take(json.loads(rec.FinalResult()))
+        return segs
+
+    def constrained_times(self, pcm16k: np.ndarray, words: list[str]) -> list[dict]:
+        """Text-constrained alignment: decode with a grammar that only allows the written words (Kaldi FST),
+        returning word times for the written text. Out-of-vocabulary words are skipped by Vosk."""
+        from vosk import KaldiRecognizer
+        phrase = " ".join(w for w in words if w)
+        if not phrase:
+            return []
+        rec = KaldiRecognizer(self._model, 16000, json.dumps([phrase, "[unk]"]))
+        rec.SetWords(True)
+        out: list[dict] = []
+        data = pcm16k.astype(np.int16).tobytes()
+        for i in range(0, len(data), 8000):
+            if rec.AcceptWaveform(data[i:i + 8000]):
+                out += json.loads(rec.Result()).get("result", [])
+        out += json.loads(rec.FinalResult()).get("result", [])
+        return [w for w in out if w.get("word") != "[unk]"]
+
     @staticmethod
     def _collect(res: dict, words: list, texts: list) -> None:
         texts.append(res.get("text", ""))

@@ -3,7 +3,7 @@
 ; UNSIGNED unless you sign it: do not claim SmartScreen approval.
 
 #define AppName "SwarLekhak"
-#define AppVersion "0.1.0"
+#define AppVersion "0.2.0"
 
 [Setup]
 AppId={{6C1F3A52-8E0B-4E59-9B7A-5A11E0B5C0DE}
@@ -45,7 +45,7 @@ Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: 
 
 [Run]
 Filename: "{app}\SwarLekhak.exe"; Parameters: "--demo-setup"; Description: "Install the demo examination package"; \
-  Flags: postinstall runhidden unchecked
+  Flags: postinstall runhidden unchecked skipifsilent
 Filename: "{app}\SwarLekhak.exe"; Description: "Launch SwarLekhak"; Flags: postinstall nowait skipifsilent
 
 [Code]
@@ -59,8 +59,8 @@ end;
 procedure InitializeWizard();
 begin
   if not FlowInstalled() then
-    MsgBox('Wispr Flow was not found (heuristic check). SwarLekhak uses Wispr Flow to write answers. ' +
-           'Install it separately from wisprflow.ai - it is not included in this installer.', mbInformation, MB_OK);
+    SuppressibleMsgBox('Wispr Flow was not found (heuristic check). SwarLekhak uses Wispr Flow to write answers. ' +
+           'Install it separately from wisprflow.ai - it is not included in this installer.', mbInformation, MB_OK, IDOK);
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
@@ -71,8 +71,9 @@ begin
   begin
     DataDir := ExpandConstant('{localappdata}\SwarLekhak');
     if DirExists(DataDir) then
-      if MsgBox('Delete your SwarLekhak data (answers, encrypted evidence audio, submissions, settings) in ' +
-                DataDir + '? Choose No to keep it.', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES then
+      { silent uninstall keeps the data (IDNO) - deleting evidence must be an explicit choice }
+      if SuppressibleMsgBox('Delete your SwarLekhak data (answers, encrypted evidence audio, submissions, settings) in ' +
+                DataDir + '? Choose No to keep it.', mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
         DelTree(DataDir, True, True, True);
   end;
 end;

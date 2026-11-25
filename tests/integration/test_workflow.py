@@ -242,3 +242,64 @@ def test_real_vosk_negation_fixture(env):
     dictate(env, "demo-q3")
     cats = [r["category"] for r in env.store.reviews(sid=env.orch.session_id)]
     assert "negation" in cats
+
+
+def test_he_swore_in_dictated_content_does_not_end_turn(env):
+    start_exam(env)
+    env.rec.wav_path = demo_fixture("demo-q1")["audio_path"]
+    env.orch.handle_command_text("start writing")
+    env.orch.on_heard("he swore that the experiment had been repeated")
+    assert env.orch.state == S.DICTATING
+    env.clock.t += 2
+    env.orch.on_heard("he swore finish writing")
+    assert env.orch.state == S.DICTATION_STOPPING
+
+
+@pytest.mark.parametrize("policy", ["review_clips", "none"])
+def test_selective_disclosure(env, policy):
+    from swarlekhak.examination.demo import make_demo_package
+    from swarlekhak.export.submission import audio_index, decrypt_audio_entry
+    pkg, key = make_demo_package(env.tmp / f"exams_{policy}", exam_id=f"physics-{policy}", audio_disclosure=policy)
+    env.orch.open_package(str(pkg))
+    env.orch.handle_command_text("yes")
+    env.orch.handle_command_text("go to question 2")
+    dictate(env, "demo-q2", transcriber_text=demo_fixture("demo-q2")["spoken_text"].lower().replace(",", "").replace(".", ""))
+    path = env.orch.submitter(env.orch.session_id, env.orch.exam)
+    view = open_submission(path)
+    assert view.integrity_ok and view.manifest["audio_disclosure"] == policy
+    entries = audio_index(view)
+    if policy == "none":
+        assert entries == [] and not any(n.startswith("encrypted_audio/") for n in view.files)
+        return
+    assert entries and all(e["kind"] == "clip" for e in entries)          # no full turn audio leaves the machine
+    clip = decrypt_audio_entry(view, entries[0]["id"], key.read_bytes())
+    from swarlekhak.audio.recorder import read_wav
+    pcm, rate = read_wav(clip)
+    assert 0 < len(pcm) / rate <= 6.0
+
+
+def test_structured_blocks_inline_in_answer_and_export(env):
+    start_exam(env)
+    env.editor.type("Results are shown below.\n\nThe reaction is exothermic.")
+    env.sched.advance(2)
+    env.orch.handle_command_text("find shown")                # work in paragraph 1
+    env.orch.handle_command_text("create a table with two columns")
+    env.orch.handle_command_text("set heading one to time")
+    env.orch.handle_command_text("row one column one is 0")
+    env.orch.handle_command_text("chemical equation methane")  # rejected: unknown word, nothing inserted
+    assert "did not understand" in env.tts.last
+    env.orch.handle_command_text("chemical equation c h four plus two oxygen two gives c o two plus two hydrogen two oxygen")
+    env.orch.handle_command_text("yes")
+    env.orch.handle_command_text("add line repeat until stable")
+    kinds = [b["type"] for b in env.orch.blocks]
+    assert kinds == ["table", "chemistry", "pseudocode"]
+    assert env.orch.blocks[0]["anchor_paragraph"] == 1
+    env.orch.handle_command_text("read my answer")
+    said = env.tts.last
+    assert said.index("Results are shown below") < said.index("Table with 2 columns") < said.index("exothermic")
+    assert env.orch.blocks[1]["linear"] == "CH₄ + 2O₂ → CO₂ + 2H₂O"
+    path = env.orch.submitter(env.orch.session_id, env.orch.exam)
+    import docx, io
+    view = open_submission(path)
+    d = docx.Document(io.BytesIO(view.files["answers.docx"]))
+    assert d.tables and d.tables[0].cell(0, 0).text == "time"

@@ -85,6 +85,103 @@ HELDOUT = [
     ("Momentum is conserved in all collisions.", "Momentum is conserved in all collisions.", []),
 ]
 
+# 4) HELD-OUT v2 (written 2026-11-25 BEFORE the N-best / constrained-alignment changes; never used for tuning).
+#    Includes a deliberately hard sound-alike substitution (refraction -> reflection).
+HELDOUT2 = [
+    ("The wavelength is six hundred nanometres.", "The wavelength is 600 nanometres.", []),
+    ("Ohm's law relates voltage, current and resistance.", "Ohm's law relates voltage, current and resistance.", []),
+    ("The pendulum completes one oscillation every two seconds.", "The pendulum completes 1 oscillation every 2 seconds.", []),
+    ("Catalysts lower the activation energy of a reaction.", "Catalysts lower the activation energy of a reaction.", []),
+    ("The beam carries a load of five kilonewtons.", "The beam carries a load of 5 kilonewtons.", []),
+    ("Water boils at one hundred degrees Celsius at sea level.", "Water boils at 100 degrees Celsius at sea level.", []),
+    ("The capacitor stores energy in its electric field.", "The capacitor stores energy in its electric field.", []),
+    ("Refraction occurs when light changes speed.", "Refraction occurs when light changes speed.", []),
+    ("The wavelength is six hundred nanometres.", "The wavelength is 60 nanometres.", ["numeric"]),
+    ("Catalysts lower the activation energy of a reaction.", "Catalysts raise the activation energy of a reaction.", ["term"]),
+    ("The capacitor does not conduct direct current.", "The capacitor does conduct direct current.", ["negation"]),
+    ("The beam carries a load of five kilonewtons.", "The beam carries a load of 5 newtons.", ["unit"]),
+    ("Momentum equals mass times velocity.", "Momentum equals mass divided by velocity.", ["operator"]),
+    ("Water boils at one hundred degrees Celsius at sea level.", "Water freezes at 100 degrees Celsius at sea level.", ["term"]),
+    ("Refraction occurs when light changes speed.", "Reflection occurs when light changes speed.", ["term"]),
+    ("The resistance is twelve ohms.", "The resistance is 20 ohms.", ["numeric"]),
+]
+
+# 6) HELD-OUT v3 + passive v2: written 2026-11-25 AFTER v2 was used to find the SI-prefix gap and BEFORE that
+#    fix and the final wake rules were implemented. Final reported numbers come from these.
+HELDOUT3 = [
+    ("The specific heat capacity of water is about four thousand two hundred joules per kilogram kelvin.",
+     "The specific heat capacity of water is about 4200 joules per kilogram kelvin.", []),
+    ("A transformer cannot change the frequency of the supply.", "A transformer cannot change the frequency of the supply.", []),
+    ("The projectile reaches its maximum height after three seconds.", "The projectile reaches its maximum height after 3 seconds.", []),
+    ("Isotopes have the same number of protons but different numbers of neutrons.",
+     "Isotopes have the same number of protons but different numbers of neutrons.", []),
+    ("The lens has a focal length of twenty five centimetres.", "The lens has a focal length of 25 cm.", []),
+    ("Diffusion is faster at higher temperatures.", "Diffusion is faster at higher temperatures.", []),
+    ("The total resistance of two resistors in parallel is less than either resistor.",
+     "The total resistance of two resistors in parallel is less than either resistor.", []),
+    ("Kinetic energy is not conserved in an inelastic collision.", "Kinetic energy is not conserved in an inelastic collision.", []),
+    ("The projectile reaches its maximum height after three seconds.", "The projectile reaches its maximum height after 13 seconds.", ["numeric"]),
+    ("A transformer cannot change the frequency of the supply.", "A transformer can change the frequency of the supply.", ["negation"]),
+    ("The lens has a focal length of twenty five centimetres.", "The lens has a focal length of 25 metres.", ["unit"]),
+    ("Pressure equals force divided by area.", "Pressure equals force times area.", ["operator"]),
+    ("Diffusion is faster at higher temperatures.", "Diffusion is slower at higher temperatures.", ["term"]),
+    ("Isotopes have the same number of protons but different numbers of neutrons.",
+     "Isotopes have the same number of electrons but different numbers of neutrons.", ["term"]),
+    ("Kinetic energy is not conserved in an inelastic collision.", "Kinetic energy is conserved in an inelastic collision.", ["negation"]),
+    ("The total resistance of two resistors in parallel is less than either resistor.",
+     "The total resistance of two resistors in parallel is more than either resistor.", ["term"]),
+]
+PASSIVE_TEXT_2 = [
+    "Hey, did anyone see where I left my lab coat this morning?",
+    "The soldier swore an oath before the ceremony began.",
+    "Hay fever is common in spring when pollen counts are high.",
+    "The water in the sewer system is treated before it reaches the river.",
+    "He swiftly solved the second problem on the board.",
+    "A swan glided across the lake behind the college.",
+    "Hey team, the results of the mock test will be posted on Friday.",
+    "The answer sheet must be signed by the invigilator.",
+    "Hi everyone, please switch off your phones before the exam.",
+    "The bird soared above the hills and disappeared into the clouds.",
+    "Sour milk contains lactic acid produced by bacteria.",
+    "He swore he would finish writing the report by tonight.",
+]
+
+# 7) passive v3: written 2026-11-25 BEFORE the weak-wake rule; the final false-wake number comes from this set.
+PASSIVE_TEXT_3 = [
+    "He swore that the experiment had been repeated three times.",
+    "Hey, is the library open after the exam today?",
+    "The heavy suitcase was left near the station entrance.",
+    "He sorted the samples by mass before starting the titration.",
+    "Hey, start the timer when the ball leaves the ramp.",
+    "Swarms of locusts can destroy crops within hours.",
+    "He swore at the broken printer and then fixed the paper jam.",
+    "The answer for question four should include a labelled diagram.",
+    "Hey, next time bring a ruler and a protractor.",
+    "Hay is stored in the barn to keep it dry during the monsoon.",
+    "He swears by drinking water before every long exam.",
+    "The swing completes twenty oscillations in forty seconds.",
+]
+
+# 5) long passive (non-wake) speech for false-wake-per-hour measurement (not committed: large)
+PASSIVE_TEXT = [
+    "The examination will begin shortly. Please read each question carefully before you answer.",
+    "Newton's second law states that force equals mass times acceleration.",
+    "He swept the floor and then he sorted the papers on the desk.",
+    "Hey everyone, the star of the show tonight is a young singer from Hyderabad.",
+    "The sewer pipes under the old city were replaced last summer.",
+    "She swore she had submitted the assignment before the deadline.",
+    "Heat flows from a hotter body to a colder body until equilibrium is reached.",
+    "A sour taste usually indicates the presence of an acid.",
+    "Hey, can you pass me the calculator and the graph paper please?",
+    "The swirling water drained slowly from the large steel tank.",
+    "In a series circuit the same current flows through every component.",
+    "Hey there, how was the physics practical this morning?",
+    "The soaring eagle circled above the valley for nearly an hour.",
+    "The answer depends on whether the surface is frictionless or rough.",
+    "Hey Sam, we should start revising the chapter on thermodynamics.",
+    "A swarm of bees settled on the branch outside the classroom window.",
+]
+
 
 def synth(text: str, voice: str, rate: int, out: Path) -> None:
     import pythoncom
@@ -108,9 +205,61 @@ def synth(text: str, voice: str, rate: int, out: Path) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(Path(__file__).resolve().parents[1] / "tests" / "fixtures" / "audio"))
+    ap.add_argument("--only", choices=["all", "heldout2", "heldout3", "passive", "passive2", "passive3"],
+                    default="all")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
+    if args.only in ("all", "heldout2"):
+        h2 = []
+        for i, (spoken, inserted, planted) in enumerate(HELDOUT2):
+            for voice, rate in (("David", 0), ("Zira", 1)):
+                wav = out / f"heldout2-{i:02d}-{voice.lower()}.wav"
+                synth(spoken, voice, rate, wav)
+                h2.append({"id": wav.stem, "audio": wav.name, "spoken_text": spoken, "inserted_text": inserted,
+                           "planted": planted, "voice": voice, "rate": rate})
+        (out / "heldout2_fixtures.json").write_text(json.dumps(h2, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"wrote {len(h2)} held-out v2 fixtures")
+    if args.only in ("all", "passive"):
+        long_dir = out.parent / "audio_long"
+        long_dir.mkdir(exist_ok=True)
+        n = 0
+        for rep_i in range(6):
+            for voice, rate in (("David", rep_i - 2), ("Zira", 2 - rep_i)):
+                text = " ".join(PASSIVE_TEXT[(rep_i * 3) % len(PASSIVE_TEXT):] + PASSIVE_TEXT[:(rep_i * 3) % len(PASSIVE_TEXT)])
+                synth(text, voice, rate, long_dir / f"passive-{rep_i}-{voice.lower()}.wav")
+                n += 1
+        print(f"wrote {n} long passive files to {long_dir}")
+    if args.only in ("all", "heldout3"):
+        h3 = []
+        for i, (spoken, inserted, planted) in enumerate(HELDOUT3):
+            for voice, rate in (("David", 0), ("Zira", 1)):
+                wav = out / f"heldout3-{i:02d}-{voice.lower()}.wav"
+                synth(spoken, voice, rate, wav)
+                h3.append({"id": wav.stem, "audio": wav.name, "spoken_text": spoken, "inserted_text": inserted,
+                           "planted": planted, "voice": voice, "rate": rate})
+        (out / "heldout3_fixtures.json").write_text(json.dumps(h3, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"wrote {len(h3)} held-out v3 fixtures")
+    if args.only in ("all", "passive2"):
+        long_dir = out.parent / "audio_long"
+        long_dir.mkdir(exist_ok=True)
+        for rep_i in range(6):
+            for voice, rate in (("David", 1 - rep_i), ("Zira", rep_i - 3)):
+                k = (rep_i * 5) % len(PASSIVE_TEXT_2)
+                synth(" ".join(PASSIVE_TEXT_2[k:] + PASSIVE_TEXT_2[:k]), voice, rate,
+                      long_dir / f"passive2-{rep_i}-{voice.lower()}.wav")
+        print("wrote 12 long passive v2 files")
+    if args.only in ("all", "passive3"):
+        long_dir = out.parent / "audio_long"
+        long_dir.mkdir(exist_ok=True)
+        for rep_i in range(6):
+            for voice, rate in (("David", rep_i - 3), ("Zira", 2 - rep_i)):
+                k = (rep_i * 7) % len(PASSIVE_TEXT_3)
+                synth(" ".join(PASSIVE_TEXT_3[k:] + PASSIVE_TEXT_3[:k]), voice, rate,
+                      long_dir / f"passive3-{rep_i}-{voice.lower()}.wav")
+        print("wrote 12 long passive v3 files")
+    if args.only != "all":
+        return 0
     demo = []
     for f in DEMO:
         wav = out / f"{f['id']}.wav"

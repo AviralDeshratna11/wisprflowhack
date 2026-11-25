@@ -210,3 +210,9 @@ def test_sonification_frequency_mapping():
     assert pcm.dtype == np.float32 and np.abs(pcm).max() <= 0.26
     t = sonify.tone(440, 100)
     assert abs(t[0]) < 0.01 and abs(t[-1]) < 0.01  # envelope: no clicks
+
+
+def test_si_prefixed_units_equivalent():
+    assert toks("5 kilonewtons") == toks("five kilo newton's") == toks("5 kN")
+    assert toks("600 nanometres") == toks("six hundred nano meters") == toks("600 nm")
+    assert toks("5 kN") != toks("5 N")          # prefix change stays a difference

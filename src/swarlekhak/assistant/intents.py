@@ -66,6 +66,22 @@ SPECS: list[IntentSpec] = [
     IntentSpec("diagram_list_nodes", (r"^(list|read) (the |all )?nodes$",)),
     IntentSpec("diagram_list_edges", (r"^(list|read) (the |all )?(connections|edges|arrows)$",)),
     IntentSpec("diagram_read", (r"^(read|describe) (the |my )?diagram$",)),
+    # structured: chemistry, tables, pseudocode (explicit content only; no balancing, no execution)
+    IntentSpec("chemistry", (r"^(?:chemical|chemistry)(?: equation)? (?P<body>.+)$",)),
+    IntentSpec("table_create", (r"^(create|make|add|insert|new) (a )?table (with )?(?P<n>\w+(?: \w+)?) columns?$",)),
+    IntentSpec("table_heading", (r"^(set|call|name) (the )?(heading|header|title) (of )?(column )?(?P<c>\w+) (to|as) (?P<text>.+)$",
+                                 r"^(set )?column (?P<c>\w+) (heading|header|title) (to|as|is) (?P<text>.+)$")),
+    IntentSpec("table_add_row", (r"^add (a |another )?row$",)),
+    IntentSpec("table_set", (r"^(set|put|write) row (?P<r>\w+) column (?P<c>\w+) (to|as) (?P<text>.+)$",
+                             r"^row (?P<r>\w+) column (?P<c>\w+) (is |equals |to )?(?P<text>.+)$")),
+    IntentSpec("table_read_row", (r"^read row (?P<r>\w+)$",)),
+    IntentSpec("table_read", (r"^(read|describe) (the |my )?table$",)),
+    IntentSpec("table_delete_row", (r"^delete row (?P<r>\w+)$",), confirm=True),
+    IntentSpec("code_add_line", (r"^(add|new|write) (code |pseudocode )?line (?P<text>.+)$",)),
+    IntentSpec("code_indent", (r"^indent( next line)?$",)),
+    IntentSpec("code_outdent", (r"^(outdent|dedent|unindent)( next line)?$",)),
+    IntentSpec("code_delete_line", (r"^delete (code )?line (?P<r>\w+)$",), confirm=True),
+    IntentSpec("code_read", (r"^(read|describe) (the |my )?(code|pseudocode|pseudo code)$",)),
     # approved visual material / sonification
     IntentSpec("play_graph", (r"^play (the )?graph$",)),
     IntentSpec("graph_next_point", (r"^next point$",)),
@@ -129,13 +145,18 @@ def parse(text: str, source: str = "voice") -> Command | None:
                 continue
             # free-text arguments keep the student's casing (equation variables, replacement words);
             # identifier-like arguments are lower-cased
-            args = {k: (v if k in ("body", "new", "old", "target", "label") else v.lower())
+            args = {k: (v if k in ("body", "new", "old", "target", "label", "text") else v.lower())
                     for k, v in m.groupdict().items() if v is not None}
-            if "n" in args:
-                n = parse_int(args["n"])
-                if n is None:
-                    continue  # "read question banana" is not a valid number -> try other patterns
-                args["n"] = n
+            bad = False
+            for key in ("n", "c", "r"):
+                if key in args:
+                    n = parse_int(args[key])
+                    if n is None:
+                        bad = True   # "read question banana" is not a number -> try other patterns
+                        break
+                    args[key] = n
+            if bad:
+                continue
             if "ord" in args:
                 args["ord"] = ordinal_to_int(args["ord"])
             return Command(intent=sp.name, args=args, allowed_states=sp.allowed,

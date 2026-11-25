@@ -14,3 +14,4 @@ secrets/
 local.key
 .env
 *.swar
+tests/fixtures/audio_long/

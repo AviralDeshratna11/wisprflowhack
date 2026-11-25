@@ -64,9 +64,11 @@ def test_during_dictation_only_stop_commands_allowed():
 
 def test_wake_regex_variants():
     rx = build_wake_regex("hey swar")
-    for heard in ("hey swar start my examination", "he swore finish writing", "hey swear", "hay sore"):
+    for heard in ("hey swar start my examination", "he swore finish writing", "hey swear", "okay hey swar"):
         assert rx.search(heard), heard
-    for heard in ("the star is bright", "hey start the engine", "say hello"):
+    # measured false triggers on passive speech must no longer wake the assistant
+    for heard in ("the star is bright", "hey start the engine", "say hello", "a sour taste indicates an acid",
+                  "she swore she had submitted it", "the old sewer pipes", "hay sore"):
         assert not rx.search(heard), heard
 
 
@@ -247,3 +249,14 @@ def test_shortcut_parsing():
     assert parse_shortcut("ctrl+win+space") == [0xA2, 0x5B, 0x20]
     with pytest.raises(ShortcutError):
         parse_shortcut("ctrl+banana")
+
+
+def test_weak_wake_needs_a_command():
+    from swarlekhak.assistant.orchestrator import wake_decision
+    rx = build_wake_regex("hey swar")
+    assert wake_decision("hey swar", rx) == (True, "")
+    assert wake_decision("hey swar banana", rx)[0]                 # strong: wakes (then says "not a command")
+    assert wake_decision("he swore read question one", rx)[0]     # weak + valid command
+    assert wake_decision("he swore", rx)[0]                       # weak + pause: listen
+    assert not wake_decision("he swore he would finish writing the report by tonight", rx)[0]
+    assert not wake_decision("he swore that the experiment was repeated", rx)[0]

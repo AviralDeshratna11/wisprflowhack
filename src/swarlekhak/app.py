@@ -64,7 +64,6 @@ def enforce_retention(store, prefs: Preferences) -> int:
 
 def selftest() -> int:
     """Headless checks usable on a clean machine / packaged build."""
-    import numpy as np
     from swarlekhak.audio.recorder import read_wav
     from swarlekhak.engines.proof import ProofEngine
     from swarlekhak.examination.demo import make_demo_package

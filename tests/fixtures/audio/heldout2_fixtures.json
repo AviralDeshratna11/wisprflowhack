@@ -1,0 +1,322 @@
+[
+  {
+    "id": "heldout2-00-david",
+    "audio": "heldout2-00-david.wav",
+    "spoken_text": "The wavelength is six hundred nanometres.",
+    "inserted_text": "The wavelength is 600 nanometres.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-00-zira",
+    "audio": "heldout2-00-zira.wav",
+    "spoken_text": "The wavelength is six hundred nanometres.",
+    "inserted_text": "The wavelength is 600 nanometres.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-01-david",
+    "audio": "heldout2-01-david.wav",
+    "spoken_text": "Ohm's law relates voltage, current and resistance.",
+    "inserted_text": "Ohm's law relates voltage, current and resistance.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-01-zira",
+    "audio": "heldout2-01-zira.wav",
+    "spoken_text": "Ohm's law relates voltage, current and resistance.",
+    "inserted_text": "Ohm's law relates voltage, current and resistance.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-02-david",
+    "audio": "heldout2-02-david.wav",
+    "spoken_text": "The pendulum completes one oscillation every two seconds.",
+    "inserted_text": "The pendulum completes 1 oscillation every 2 seconds.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-02-zira",
+    "audio": "heldout2-02-zira.wav",
+    "spoken_text": "The pendulum completes one oscillation every two seconds.",
+    "inserted_text": "The pendulum completes 1 oscillation every 2 seconds.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-03-david",
+    "audio": "heldout2-03-david.wav",
+    "spoken_text": "Catalysts lower the activation energy of a reaction.",
+    "inserted_text": "Catalysts lower the activation energy of a reaction.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-03-zira",
+    "audio": "heldout2-03-zira.wav",
+    "spoken_text": "Catalysts lower the activation energy of a reaction.",
+    "inserted_text": "Catalysts lower the activation energy of a reaction.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-04-david",
+    "audio": "heldout2-04-david.wav",
+    "spoken_text": "The beam carries a load of five kilonewtons.",
+    "inserted_text": "The beam carries a load of 5 kilonewtons.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-04-zira",
+    "audio": "heldout2-04-zira.wav",
+    "spoken_text": "The beam carries a load of five kilonewtons.",
+    "inserted_text": "The beam carries a load of 5 kilonewtons.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-05-david",
+    "audio": "heldout2-05-david.wav",
+    "spoken_text": "Water boils at one hundred degrees Celsius at sea level.",
+    "inserted_text": "Water boils at 100 degrees Celsius at sea level.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-05-zira",
+    "audio": "heldout2-05-zira.wav",
+    "spoken_text": "Water boils at one hundred degrees Celsius at sea level.",
+    "inserted_text": "Water boils at 100 degrees Celsius at sea level.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-06-david",
+    "audio": "heldout2-06-david.wav",
+    "spoken_text": "The capacitor stores energy in its electric field.",
+    "inserted_text": "The capacitor stores energy in its electric field.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-06-zira",
+    "audio": "heldout2-06-zira.wav",
+    "spoken_text": "The capacitor stores energy in its electric field.",
+    "inserted_text": "The capacitor stores energy in its electric field.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-07-david",
+    "audio": "heldout2-07-david.wav",
+    "spoken_text": "Refraction occurs when light changes speed.",
+    "inserted_text": "Refraction occurs when light changes speed.",
+    "planted": [],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-07-zira",
+    "audio": "heldout2-07-zira.wav",
+    "spoken_text": "Refraction occurs when light changes speed.",
+    "inserted_text": "Refraction occurs when light changes speed.",
+    "planted": [],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-08-david",
+    "audio": "heldout2-08-david.wav",
+    "spoken_text": "The wavelength is six hundred nanometres.",
+    "inserted_text": "The wavelength is 60 nanometres.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-08-zira",
+    "audio": "heldout2-08-zira.wav",
+    "spoken_text": "The wavelength is six hundred nanometres.",
+    "inserted_text": "The wavelength is 60 nanometres.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-09-david",
+    "audio": "heldout2-09-david.wav",
+    "spoken_text": "Catalysts lower the activation energy of a reaction.",
+    "inserted_text": "Catalysts raise the activation energy of a reaction.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-09-zira",
+    "audio": "heldout2-09-zira.wav",
+    "spoken_text": "Catalysts lower the activation energy of a reaction.",
+    "inserted_text": "Catalysts raise the activation energy of a reaction.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-10-david",
+    "audio": "heldout2-10-david.wav",
+    "spoken_text": "The capacitor does not conduct direct current.",
+    "inserted_text": "The capacitor does conduct direct current.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-10-zira",
+    "audio": "heldout2-10-zira.wav",
+    "spoken_text": "The capacitor does not conduct direct current.",
+    "inserted_text": "The capacitor does conduct direct current.",
+    "planted": [
+      "negation"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-11-david",
+    "audio": "heldout2-11-david.wav",
+    "spoken_text": "The beam carries a load of five kilonewtons.",
+    "inserted_text": "The beam carries a load of 5 newtons.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-11-zira",
+    "audio": "heldout2-11-zira.wav",
+    "spoken_text": "The beam carries a load of five kilonewtons.",
+    "inserted_text": "The beam carries a load of 5 newtons.",
+    "planted": [
+      "unit"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-12-david",
+    "audio": "heldout2-12-david.wav",
+    "spoken_text": "Momentum equals mass times velocity.",
+    "inserted_text": "Momentum equals mass divided by velocity.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-12-zira",
+    "audio": "heldout2-12-zira.wav",
+    "spoken_text": "Momentum equals mass times velocity.",
+    "inserted_text": "Momentum equals mass divided by velocity.",
+    "planted": [
+      "operator"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-13-david",
+    "audio": "heldout2-13-david.wav",
+    "spoken_text": "Water boils at one hundred degrees Celsius at sea level.",
+    "inserted_text": "Water freezes at 100 degrees Celsius at sea level.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-13-zira",
+    "audio": "heldout2-13-zira.wav",
+    "spoken_text": "Water boils at one hundred degrees Celsius at sea level.",
+    "inserted_text": "Water freezes at 100 degrees Celsius at sea level.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-14-david",
+    "audio": "heldout2-14-david.wav",
+    "spoken_text": "Refraction occurs when light changes speed.",
+    "inserted_text": "Reflection occurs when light changes speed.",
+    "planted": [
+      "term"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-14-zira",
+    "audio": "heldout2-14-zira.wav",
+    "spoken_text": "Refraction occurs when light changes speed.",
+    "inserted_text": "Reflection occurs when light changes speed.",
+    "planted": [
+      "term"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  },
+  {
+    "id": "heldout2-15-david",
+    "audio": "heldout2-15-david.wav",
+    "spoken_text": "The resistance is twelve ohms.",
+    "inserted_text": "The resistance is 20 ohms.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "David",
+    "rate": 0
+  },
+  {
+    "id": "heldout2-15-zira",
+    "audio": "heldout2-15-zira.wav",
+    "spoken_text": "The resistance is twelve ohms.",
+    "inserted_text": "The resistance is 20 ohms.",
+    "planted": [
+      "numeric"
+    ],
+    "voice": "Zira",
+    "rate": 1
+  }
+]

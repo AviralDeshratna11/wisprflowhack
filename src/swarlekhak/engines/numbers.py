@@ -74,6 +74,36 @@ def parse_number_words(tokens: list[str], start: int) -> tuple[str | None, int]:
     return text, i - start
 
 
+_SMALL_W = {v: k for k, v in SMALL.items()}
+_TENS_W = {v: k for k, v in TENS.items()}
+
+
+def int_to_words(n: int) -> list[str]:
+    if n < 0:
+        return ["minus"] + int_to_words(-n)
+    if n < 20:
+        return [_SMALL_W[n]]
+    if n < 100:
+        t, u = divmod(n, 10)
+        return [_TENS_W[t * 10]] + ([_SMALL_W[u]] if u else [])
+    if n < 1000:
+        h, r = divmod(n, 100)
+        return [_SMALL_W[h], "hundred"] + (["and"] + int_to_words(r) if r else [])
+    if n < 1_000_000:
+        th, r = divmod(n, 1000)
+        return int_to_words(th) + ["thousand"] + (int_to_words(r) if r else [])
+    m, r = divmod(n, 1_000_000)
+    return int_to_words(m) + ["million"] + (int_to_words(r) if r else [])
+
+
+def number_to_words(s: str) -> list[str]:
+    """'15' -> ['fifteen']; '9.8' -> ['nine', 'point', 'eight']."""
+    if "." in s:
+        a, b = s.split(".", 1)
+        return int_to_words(int(a or 0)) + ["point"] + [_SMALL_W[int(d)] for d in b if d.isdigit()]
+    return int_to_words(int(s))
+
+
 def parse_int(text: str) -> int | None:
     """Parse '3', 'three', 'third', 'twenty one' -> int."""
     text = text.strip().lower()

@@ -25,14 +25,17 @@ from swarlekhak.contracts import Command, DictationTurn, ReviewStatus, TurnSourc
 from swarlekhak.engines import sonify
 from swarlekhak.engines.cursor import AudioCursor, CursorError, Span
 from swarlekhak.engines.diagram import Diagram, DiagramError
+from swarlekhak.engines import layout
 from swarlekhak.engines.math_compiler import MathError, compile_spoken
+from swarlekhak.engines.structured import Pseudocode, StructuredError, Table, compile_chemistry
 from swarlekhak.examination.package import ExamPackage, PackageError, load_exam_package
 from swarlekhak.storage.db import Store, new_id
 
 log = logging.getLogger(__name__)
 
-WAKE_VARIANTS = ("swar", "swear", "swore", "sewer", "soar", "sour", "star", "swara", "swa", "suar", "swar's",
-                 "sar", "sore", "sware", "four", "swat")
+# Near-homophones the general model writes for "Swar". Low-precision words ("sour", "star", "sore", "four",
+# "sar", "swat") were removed after measuring 50 false wakes/hour on passive speech ("a sour taste...").
+WAKE_VARIANTS = ("swar", "swear", "swore", "sewer", "soar", "swara", "swa", "suar", "swar's", "sware")
 POST_SUBMIT_OK = {"help", "status", "go_to_sleep", "mute", "speech_rate", "cancel", "dismiss"}
 
 
@@ -69,7 +72,29 @@ def build_wake_regex(phrase: str) -> re.Pattern:
     if len(words) >= 2:
         second.add(words[1])
     first = words[0] if words else "hey"
-    return re.compile(rf"\b(?:{re.escape(first)}|hay|hi|he|a)\s+(?:{'|'.join(map(re.escape, sorted(second)))})\b")
+    # the wake phrase must open the utterance (the recogniser segments on pauses): "...she swore she had..."
+    # or "...a sewer pipe..." mid-sentence can no longer wake the assistant
+    return re.compile(rf"^(?:(?:ok|okay|so|um|uh)\s+)?(?:{re.escape(first)}|hay|hi|he)\s+"
+                      rf"(?:{'|'.join(map(re.escape, sorted(second)))})\b")
+
+
+STRONG_FIRST = {"hey", "hay", "hi"}
+STRONG_SECOND = {"swar", "swara", "swear", "sware", "swar's", "suar", "swa"}
+
+
+def wake_decision(t: str, wake_rx: re.Pattern, custom_second: str = "") -> tuple[bool, str]:
+    """(woke, rest). A strong match ("hey swar") always wakes. A weak match ("he swore ...", which the
+    recogniser often writes for "Hey Swar" but which is also ordinary English) wakes only when nothing
+    follows or what follows is an allow-listed command. Measured: 7 false wakes in 10.6 min before this rule."""
+    m = wake_rx.search(t)
+    if not m:
+        return False, ""
+    rest = t[m.end():].strip()
+    words = t[m.start():m.end()].split()
+    strong = len(words) >= 2 and words[-2] in STRONG_FIRST and (words[-1] in STRONG_SECOND or words[-1] == custom_second)
+    if strong or not rest:
+        return True, rest
+    return intents.parse(rest) is not None, rest
 
 
 def human_count(n: int, word: str) -> str:
@@ -288,20 +313,20 @@ class Orchestrator:
         t = intents.clean(text)
         st = self.state
         m = self.wake_rx.search(t)
+        second = (self.prefs.wake_phrase.lower().split() + ["", ""])[1]
+        woke, rest = wake_decision(t, self.wake_rx, second)
         if st in (S.SPEAKING, S.DICTATION_STARTING, S.DICTATION_STOPPING, S.MUTED):
             return
         if st == S.DICTATING:
-            if m:  # "Hey Swar ..." during dictation always ends the turn first
-                rest = t[m.end():].strip()
+            if woke:  # "Hey Swar ..." during dictation ends the turn first; "he swore that..." stays content
                 cmd = intents.parse(rest) if rest else None
                 self._after_stop_command = rest if (cmd and cmd.intent not in ("finish_writing",)) else None
                 self.finish_writing(via="wake")
             return  # everything else is answer content for Wispr Flow
         if st in (S.PASSIVE_WAKE, S.SUBMITTED):
-            if not (m and self.prefs.wake_enabled):
+            if not (woke and self.prefs.wake_enabled):
                 return
             self._conversing = st == S.PASSIVE_WAKE
-            rest = t[m.end():].strip()
             if rest:
                 self.handle_command_text(rest, "voice")
             elif st == S.PASSIVE_WAKE:
@@ -380,7 +405,7 @@ class Orchestrator:
         handler = getattr(self, f"_do_{cmd.intent}")
         try:
             handler(cmd)
-        except (CursorError, DiagramError, MathError) as exc:
+        except (CursorError, DiagramError, MathError, StructuredError) as exc:
             self.say(str(exc))
         except PermissionError as exc:
             self.say(str(exc))
@@ -392,8 +417,10 @@ class Orchestrator:
             return
         self.say("You can say: read question; next question; start writing, then Hey Swar finish writing; "
                  "read my answer; next sentence; find a word; replace a word with another; undo; read review; "
-                 "play the original; keep original; equation followed by the equation; create node, connect A to B; "
-                 "play the graph; time left; and submit examination.")
+                 "play the original; keep original; equation followed by the equation; "
+                 "chemical equation followed by the reaction; create a table with three columns, then row one column "
+                 "two is a value; add line, indent and read the code for pseudocode; create node, connect A to B; "
+                 "play the graph; time left; thanks to end the conversation; and submit examination.")
 
     def _do_confirm_yes(self, cmd: Command) -> None:
         p, self.pending = self.pending, None
@@ -1090,12 +1117,8 @@ class Orchestrator:
         if not self.answer_text.strip() and not self.blocks:
             self.say("This answer is empty.")
             return
-        parts = [self.answer_text.strip()] if self.answer_text.strip() else []
-        for i, b in enumerate(self.blocks, 1):
-            if b["type"] == "equation":
-                parts.append(f"Equation: {b['spoken']}.")
-            elif b["type"] == "diagram":
-                parts.append("Diagram. " + Diagram.from_block(b).summary())
+        parts = [p if kind == "text" else layout.block_spoken(p)
+                 for kind, p in layout.interleave(self.answer_text, self.blocks)]
         self.say(" ".join(parts))
 
     def _do_read_sentence(self, cmd: Command) -> None:
@@ -1166,7 +1189,7 @@ class Orchestrator:
         block_id = new_id("eq")
 
         def insert():
-            blocks = self.blocks + [eq.to_block(block_id)]
+            blocks = self.blocks + [self._anchored(eq.to_block(block_id))]
             self._commit(self.answer_text, "equation_added", {"block_id": block_id, "source": body}, blocks=blocks)
             n = sum(1 for b in blocks if b["type"] == "equation")
             self.say(f"Inserted as equation {n}.")
@@ -1184,9 +1207,9 @@ class Orchestrator:
         msg = fn(d)
         blocks = list(self.blocks)
         if idx is None:
-            blocks.append(d.to_block(new_id("dg")))
+            blocks.append(self._anchored(d.to_block(new_id("dg"))))
         else:
-            blocks[idx] = d.to_block(blocks[idx]["id"])
+            blocks[idx] = {**d.to_block(blocks[idx]["id"]), "anchor_paragraph": blocks[idx].get("anchor_paragraph")}
         self._commit(self.answer_text, f"diagram_{op}", {"op": op}, blocks=blocks)
         self.say(msg)
 
@@ -1216,6 +1239,99 @@ class Orchestrator:
 
     def _do_diagram_read(self, cmd: Command) -> None:
         self.say(self._diagram()[0].summary())
+
+    def _anchored(self, block: dict) -> dict:
+        """Place a new block after the paragraph being worked on (selection), else after the last paragraph."""
+        sel = self.cursor.selection
+        block["anchor_paragraph"] = layout.anchor_for(self.answer_text, sel.end if sel else None)
+        return block
+
+    # ================================================================== chemistry / tables / pseudocode
+    def _do_chemistry(self, cmd: Command) -> None:
+        chem = compile_chemistry(cmd.args["body"])
+        block_id = new_id("ch")
+
+        def insert():
+            blocks = self.blocks + [self._anchored(chem.to_block(block_id))]
+            self._commit(self.answer_text, "chemistry_added", {"block_id": block_id, "source": cmd.args["body"]},
+                         blocks=blocks)
+            self.say(f"Inserted chemical equation {chem.linear}. It was not balanced or checked.")
+        self.ask(f"I heard: {chem.spoken}. Insert this chemical equation?", insert)
+
+    def _last_block(self, kind: str) -> tuple[dict | None, int | None]:
+        for i in range(len(self.blocks) - 1, -1, -1):
+            if self.blocks[i]["type"] == kind:
+                return self.blocks[i], i
+        return None, None
+
+    def _struct_op(self, kind: str, fn, op: str, create=None) -> None:
+        block, idx = self._last_block(kind)
+        if block is None and create is None:
+            raise StructuredError({"table": "There is no table yet. Say create a table with three columns.",
+                                   "pseudocode": "There is no pseudocode yet. Say add line, then the line."}[kind])
+        obj = create() if block is None else (Table if kind == "table" else Pseudocode).from_block(block)
+        msg = fn(obj)
+        blocks = list(self.blocks)
+        if idx is None:
+            blocks.append(self._anchored(obj.to_block(new_id("tb" if kind == "table" else "pc"))))
+        else:
+            blocks[idx] = {**obj.to_block(block["id"]), "anchor_paragraph": block.get("anchor_paragraph")}
+        self._commit(self.answer_text, f"{kind}_{op}", {"op": op}, blocks=blocks)
+        self.say(msg)
+
+    def _do_table_create(self, cmd: Command) -> None:
+        t = Table.create(cmd.args["n"])
+        blocks = self.blocks + [self._anchored(t.to_block(new_id("tb")))]
+        self._commit(self.answer_text, "table_create", {"columns": cmd.args["n"]}, blocks=blocks)
+        self.say(f"Created a table with {cmd.args['n']} columns and one empty row. Set headings with: "
+                 "set heading one to time.")
+
+    def _do_table_heading(self, cmd: Command) -> None:
+        self._struct_op("table", lambda t: t.set_heading(cmd.args["c"], cmd.args["text"]), "heading")
+
+    def _do_table_add_row(self, cmd: Command) -> None:
+        self._struct_op("table", lambda t: t.add_row(), "add_row")
+
+    def _do_table_set(self, cmd: Command) -> None:
+        self._struct_op("table", lambda t: t.set_cell(cmd.args["r"], cmd.args["c"], cmd.args["text"]), "set_cell")
+
+    def _do_table_read_row(self, cmd: Command) -> None:
+        block, _ = self._last_block("table")
+        if not block:
+            raise StructuredError("There is no table yet.")
+        self.say(Table.from_block(block).read_row(cmd.args["r"]))
+
+    def _do_table_read(self, cmd: Command) -> None:
+        block, _ = self._last_block("table")
+        self.say(Table.from_block(block).summary() if block else "There is no table yet.")
+
+    def _do_table_delete_row(self, cmd: Command) -> None:
+        block, _ = self._last_block("table")
+        if not block:
+            raise StructuredError("There is no table yet.")
+        Table.from_block(block)._row(cmd.args["r"])   # validate before asking
+        self.ask(f"Delete row {cmd.args['r']} of the table?",
+                 lambda: self._struct_op("table", lambda t: t.delete_row(cmd.args["r"]), "delete_row"))
+
+    def _do_code_add_line(self, cmd: Command) -> None:
+        self._struct_op("pseudocode", lambda p: p.add_line(cmd.args["text"]), "add_line", create=Pseudocode)
+
+    def _do_code_indent(self, cmd: Command) -> None:
+        self._struct_op("pseudocode", lambda p: p.change_indent(+1), "indent", create=Pseudocode)
+
+    def _do_code_outdent(self, cmd: Command) -> None:
+        self._struct_op("pseudocode", lambda p: p.change_indent(-1), "outdent", create=Pseudocode)
+
+    def _do_code_delete_line(self, cmd: Command) -> None:
+        block, _ = self._last_block("pseudocode")
+        if not block:
+            raise StructuredError("There is no pseudocode yet.")
+        self.ask(f"Delete pseudocode line {cmd.args['r']}?",
+                 lambda: self._struct_op("pseudocode", lambda p: p.delete_line(cmd.args["r"]), "delete_line"))
+
+    def _do_code_read(self, cmd: Command) -> None:
+        block, _ = self._last_block("pseudocode")
+        self.say(Pseudocode.from_block(block).read() if block else "There is no pseudocode yet.")
 
     # ================================================================== approved visuals / sonification
     def _graph(self) -> dict | None:

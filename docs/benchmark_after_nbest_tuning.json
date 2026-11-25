@@ -1,0 +1,1999 @@
+{
+  "environment": {
+    "os": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.0",
+    "cpu": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "asr": "vosk-0.3.45/vosk-model-small-en-us-0.15",
+    "speech": "synthetic Windows SAPI voices (David, Zira); not human speech"
+  },
+  "gate_c": {
+    "wake_true_positive": 12,
+    "wake_false_negative": 0,
+    "wake_false_positive": 0,
+    "wake_true_negative": 8,
+    "wake_recall": 1.0,
+    "wake_recall_95ci": [
+      0.757,
+      1.0
+    ],
+    "command_accuracy_given_expected_wake": 1.0,
+    "n_utterances": 20,
+    "rows": [
+      {
+        "id": "wake-00-david",
+        "said": "Hey Swar, start my examination.",
+        "heard": "he swore start my examination",
+        "woke": true,
+        "intent": "start_exam",
+        "expected": "start_exam"
+      },
+      {
+        "id": "wake-00-zira",
+        "said": "Hey Swar, start my examination.",
+        "heard": "hey swore start my examination",
+        "woke": true,
+        "intent": "start_exam",
+        "expected": "start_exam"
+      },
+      {
+        "id": "wake-01-david",
+        "said": "Hey Swar, read question one.",
+        "heard": "he swore read question one",
+        "woke": true,
+        "intent": "read_question",
+        "expected": "read_question"
+      },
+      {
+        "id": "wake-01-zira",
+        "said": "Hey Swar, read question one.",
+        "heard": "hey swore read question one",
+        "woke": true,
+        "intent": "read_question",
+        "expected": "read_question"
+      },
+      {
+        "id": "wake-02-david",
+        "said": "Hey Swar, finish writing.",
+        "heard": "he swore finish writing",
+        "woke": true,
+        "intent": "finish_writing",
+        "expected": "finish_writing"
+      },
+      {
+        "id": "wake-02-zira",
+        "said": "Hey Swar, finish writing.",
+        "heard": "hey swore finish writing",
+        "woke": true,
+        "intent": "finish_writing",
+        "expected": "finish_writing"
+      },
+      {
+        "id": "wake-03-david",
+        "said": "Hey Swar.",
+        "heard": "he swore",
+        "woke": true,
+        "intent": "wake_only",
+        "expected": "wake_only"
+      },
+      {
+        "id": "wake-03-zira",
+        "said": "Hey Swar.",
+        "heard": "hey swore",
+        "woke": true,
+        "intent": "wake_only",
+        "expected": "wake_only"
+      },
+      {
+        "id": "wake-04-david",
+        "said": "Hey Swar, next question.",
+        "heard": "he swore next question",
+        "woke": true,
+        "intent": "next_question",
+        "expected": "next_question"
+      },
+      {
+        "id": "wake-04-zira",
+        "said": "Hey Swar, next question.",
+        "heard": "hey swore next question",
+        "woke": true,
+        "intent": "next_question",
+        "expected": "next_question"
+      },
+      {
+        "id": "wake-05-david",
+        "said": "Hey Swar, play the original.",
+        "heard": "he swore play the original",
+        "woke": true,
+        "intent": "play_original",
+        "expected": "play_original"
+      },
+      {
+        "id": "wake-05-zira",
+        "said": "Hey Swar, play the original.",
+        "heard": "hey swore play the original",
+        "woke": true,
+        "intent": "play_original",
+        "expected": "play_original"
+      },
+      {
+        "id": "wake-06-david",
+        "said": "The stress in the beam is proportional to the moment.",
+        "heard": "the stress in the beam is proportional to the moment",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-06-zira",
+        "said": "The stress in the beam is proportional to the moment.",
+        "heard": "the stress in the beam is proportional to the moment",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-07-david",
+        "said": "Hey, start the engine and check the oil.",
+        "heard": "hey start the engine and check the oil",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-07-zira",
+        "said": "Hey, start the engine and check the oil.",
+        "heard": "hey start the engine and check the oil",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-08-david",
+        "said": "Say hello to the class before we begin.",
+        "heard": "say hello to the class before we begin",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-08-zira",
+        "said": "Say hello to the class before we begin.",
+        "heard": "say hello to the class before we begin",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-09-david",
+        "said": "The star is very bright tonight.",
+        "heard": "the store is very bright tonight",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      },
+      {
+        "id": "wake-09-zira",
+        "said": "The star is very bright tonight.",
+        "heard": "the star is very bright night",
+        "woke": false,
+        "intent": null,
+        "expected": null
+      }
+    ]
+  },
+  "gate_d_development": {
+    "n_turns": 52,
+    "planted_turns": 29,
+    "control_turns": 23,
+    "planted_recall": 1.0,
+    "planted_recall_95ci": [
+      0.883,
+      1.0
+    ],
+    "category_match_rate": 1.0,
+    "control_false_positive_rate": 0.043,
+    "control_fp_95ci": [
+      0.008,
+      0.21
+    ],
+    "extra_flags_on_planted_turns": 4,
+    "clips_at_most_4s": "33/33",
+    "asr_wer_vs_spoken_mean": 0.089,
+    "latency_mean_s": 1.978,
+    "latency_max_s": 3.543,
+    "real_time_factor_mean": 0.633,
+    "rows": [
+      {
+        "id": "eval-00-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "twenty newton's is the net force on the block",
+        "latency_s": 1.213
+      },
+      {
+        "id": "eval-00-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "twenty newton's is the net force on the block",
+        "latency_s": 1.186
+      },
+      {
+        "id": "eval-01-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the current is three point five ampere's",
+        "latency_s": 1.243
+      },
+      {
+        "id": "eval-01-zira",
+        "planted": [],
+        "flags": [
+          [
+            "term",
+            ".",
+            "years",
+            [
+              1.3,
+              2.33
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the current is three point five amp years",
+        "latency_s": 2.043
+      },
+      {
+        "id": "eval-02-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "50",
+            "15",
+            [
+              0.34,
+              1.46
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the speed is fifteen meters per second",
+        "latency_s": 2.44
+      },
+      {
+        "id": "eval-02-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "50",
+            "15",
+            [
+              0.28,
+              1.4
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the speed is fifteen meters per second",
+        "latency_s": 2.423
+      },
+      {
+        "id": "eval-03-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "14",
+            "40",
+            [
+              0.64,
+              1.73
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance is forty ohms",
+        "latency_s": 2.309
+      },
+      {
+        "id": "eval-03-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "14 ohms",
+            "40 arms",
+            [
+              0.43,
+              1.85
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance is forty arms",
+        "latency_s": 2.024
+      },
+      {
+        "id": "eval-04-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.55,
+              1.49
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the reaction is not reversible at room temperature",
+        "latency_s": 3.284
+      },
+      {
+        "id": "eval-04-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.4,
+              1.31
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the reaction is not reversible at room temperature",
+        "latency_s": 2.817
+      },
+      {
+        "id": "eval-05-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "acts",
+            "never x",
+            [
+              0.28,
+              1.58
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "friction never x in the direction of motion here",
+        "latency_s": 2.687
+      },
+      {
+        "id": "eval-05-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "acts",
+            "never x",
+            [
+              0.13,
+              1.28
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "friction never x in the direction of motion here",
+        "latency_s": 2.566
+      },
+      {
+        "id": "eval-06-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the masses two kilograms",
+        "latency_s": 1.185
+      },
+      {
+        "id": "eval-06-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the masses two kilograms",
+        "latency_s": 1.177
+      },
+      {
+        "id": "eval-07-david",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "g",
+            "kilogram",
+            [
+              0.58,
+              2.12
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the masses two kilograms",
+        "latency_s": 2.447
+      },
+      {
+        "id": "eval-07-zira",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "g",
+            "kilogram",
+            [
+              0.43,
+              1.88
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the masses two kilograms",
+        "latency_s": 2.419
+      },
+      {
+        "id": "eval-08-david",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "metres",
+            "centimetre",
+            [
+              0.67,
+              2.24
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the length is five centimeters",
+        "latency_s": 2.384
+      },
+      {
+        "id": "eval-08-zira",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "metres",
+            "centimetre",
+            [
+              0.49,
+              1.91
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the length is five centimeters",
+        "latency_s": 2.306
+      },
+      {
+        "id": "eval-09-david",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "plus",
+            "times",
+            [
+              0.88,
+              1.97
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "for sequels mass times acceleration",
+        "latency_s": 2.334
+      },
+      {
+        "id": "eval-09-zira",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "plus",
+            "times",
+            [
+              0.7,
+              1.73
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "for sequels mass times acceleration",
+        "latency_s": 2.316
+      },
+      {
+        "id": "eval-10-david",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "divided by",
+            "times",
+            [
+              1.0,
+              2.09
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "voltage equals current times resistance",
+        "latency_s": 2.494
+      },
+      {
+        "id": "eval-10-zira",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "divided by",
+            "times",
+            [
+              0.73,
+              1.73
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "voltage equals current times resistance",
+        "latency_s": 2.557
+      },
+      {
+        "id": "eval-11-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "increases",
+            "decreases",
+            [
+              1.6,
+              3.02
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "pressure increases when the volume decreases",
+        "latency_s": 2.401
+      },
+      {
+        "id": "eval-11-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "increases",
+            "decreases",
+            [
+              1.18,
+              2.54
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "pressure increases when the volume decreases",
+        "latency_s": 2.647
+      },
+      {
+        "id": "eval-12-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "longitudinal",
+            "transverse",
+            [
+              0.31,
+              1.88
+            ],
+            false
+          ],
+          [
+            "term",
+            "transverse",
+            "longitudinal",
+            [
+              1.78,
+              3.38
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the wave is transverse not longitudinal",
+        "latency_s": 2.725
+      },
+      {
+        "id": "eval-12-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "longitudinal",
+            "transverse",
+            [
+              0.16,
+              1.55
+            ],
+            false
+          ],
+          [
+            "term",
+            "transverse",
+            "longitudinal",
+            [
+              1.42,
+              2.87
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the wave is transverse not longitudinal",
+        "latency_s": 2.584
+      },
+      {
+        "id": "eval-13-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the energy is conserved in this collision",
+        "latency_s": 1.318
+      },
+      {
+        "id": "eval-13-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the energy is conserved in this collision",
+        "latency_s": 1.154
+      },
+      {
+        "id": "eval-14-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the temperature rose by twelve degrees",
+        "latency_s": 1.086
+      },
+      {
+        "id": "eval-14-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the temperature rose by twelve degrees",
+        "latency_s": 1.057
+      },
+      {
+        "id": "eval-15-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the been to flex by two millimeters",
+        "latency_s": 1.142
+      },
+      {
+        "id": "eval-15-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the beam deflects by two millimeters",
+        "latency_s": 1.14
+      },
+      {
+        "id": "eval-16-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "entropy of an isolated system does not decrease",
+        "latency_s": 1.235
+      },
+      {
+        "id": "eval-16-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "entropy of an isolated system does not decrease",
+        "latency_s": 1.343
+      },
+      {
+        "id": "eval-17-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "15 Hz",
+            "50 hurts",
+            [
+              0.7,
+              2.27
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the frequency is fifty hurts",
+        "latency_s": 2.574
+      },
+      {
+        "id": "eval-17-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "15 Hz",
+            "50 hurts",
+            [
+              0.55,
+              2.03
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the frequency is fifty hurts",
+        "latency_s": 2.342
+      },
+      {
+        "id": "eval-18-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "cold",
+            "hot",
+            [
+              0.67,
+              1.605
+            ],
+            false
+          ],
+          [
+            "term",
+            "hot",
+            "cold",
+            [
+              1.48,
+              2.51
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "he'd flows from the hot body to the cold body",
+        "latency_s": 2.766
+      },
+      {
+        "id": "eval-18-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "cold",
+            "hot",
+            [
+              0.52,
+              1.46
+            ],
+            false
+          ],
+          [
+            "term",
+            "hot",
+            "cold",
+            [
+              1.27,
+              2.24
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "he'd flows from the hot body to the cold body",
+        "latency_s": 2.203
+      },
+      {
+        "id": "eval-19-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the some of the angles is one hundred and eighty degrees",
+        "latency_s": 1.265
+      },
+      {
+        "id": "eval-19-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the some of the angles is one hundred and eighty degrees",
+        "latency_s": 1.181
+      },
+      {
+        "id": "eval-20-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the efficiency is sixty percent",
+        "latency_s": 0.902
+      },
+      {
+        "id": "eval-20-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the efficiency is sixty percent",
+        "latency_s": 0.886
+      },
+      {
+        "id": "eval-21-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "acceleration is the rate of change of velocity",
+        "latency_s": 1.15
+      },
+      {
+        "id": "eval-21-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "acceleration is the rate of change of velocity",
+        "latency_s": 1.035
+      },
+      {
+        "id": "eval-22-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the guess is ideal so the internal energy depends only on temperature",
+        "latency_s": 1.345
+      },
+      {
+        "id": "eval-22-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the gas is ideal so the internal energy depends only on temperature",
+        "latency_s": 1.457
+      },
+      {
+        "id": "eval-23-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.43,
+              1.4
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the block does not slide down the incline",
+        "latency_s": 2.028
+      },
+      {
+        "id": "eval-23-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "slide",
+            "not lie",
+            [
+              0.34,
+              1.52
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the block does not lie down the incline",
+        "latency_s": 2.117
+      },
+      {
+        "id": "demo-q1",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "increases",
+            "decreases",
+            [
+              7.18,
+              8.6
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "bending stress sigma equals m times why divided by i so when the moment of inertia increases the vending stress decreases",
+        "latency_s": 3.543
+      },
+      {
+        "id": "demo-q2",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "15",
+            "10",
+            [
+              5.98,
+              7.04
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the acceleration is ten meters per second squared because twenty newton's divided by two kilograms gives ten",
+        "latency_s": 3.501
+      },
+      {
+        "id": "demo-q3",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.7,
+              1.64
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the velocity does not stay constant it rises from zero to four meters per second and then falls to one",
+        "latency_s": 3.534
+      },
+      {
+        "id": "demo-q4",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the sensor measures the output of the plant and feeds it back to the controller",
+        "latency_s": 1.357
+      }
+    ]
+  },
+  "gate_d_heldout": {
+    "n_turns": 28,
+    "planted_turns": 14,
+    "control_turns": 14,
+    "planted_recall": 1.0,
+    "planted_recall_95ci": [
+      0.785,
+      1.0
+    ],
+    "category_match_rate": 1.0,
+    "control_false_positive_rate": 0.071,
+    "control_fp_95ci": [
+      0.013,
+      0.315
+    ],
+    "extra_flags_on_planted_turns": 0,
+    "clips_at_most_4s": "14/14",
+    "asr_wer_vs_spoken_mean": 0.074,
+    "latency_mean_s": 1.946,
+    "latency_max_s": 3.013,
+    "real_time_factor_mean": 0.658,
+    "rows": [
+      {
+        "id": "heldout-00-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the car travels thirty kilometers in half an hour",
+        "latency_s": 1.165
+      },
+      {
+        "id": "heldout-00-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the car travels thirty kilometers in half an hour",
+        "latency_s": 1.157
+      },
+      {
+        "id": "heldout-01-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "13",
+            "30",
+            [
+              0.61,
+              1.61
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the car travels thirty kilometers in half an hour",
+        "latency_s": 2.306
+      },
+      {
+        "id": "heldout-01-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "13",
+            "30",
+            [
+              0.49,
+              1.46
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the car travels thirty kilometers in half an hour",
+        "latency_s": 2.179
+      },
+      {
+        "id": "heldout-02-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "kinetic energy is have mv squared",
+        "latency_s": 2.254
+      },
+      {
+        "id": "heldout-02-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "kinetic energy is have mv squared",
+        "latency_s": 2.328
+      },
+      {
+        "id": "heldout-03-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.46,
+              1.4
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the current does not depend on the length of the wire",
+        "latency_s": 2.343
+      },
+      {
+        "id": "heldout-03-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.37,
+              1.31
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the current does not depend on the length of the wire",
+        "latency_s": 2.13
+      },
+      {
+        "id": "heldout-04-david",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "times",
+            "divided by",
+            [
+              0.88,
+              2.21
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "our equals work divided by time",
+        "latency_s": 2.214
+      },
+      {
+        "id": "heldout-04-zira",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "times",
+            "divided by",
+            [
+              0.556,
+              1.79
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "power equals work divided by time",
+        "latency_s": 2.191
+      },
+      {
+        "id": "heldout-05-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the density of water is one thousand kilograms per cubic meter",
+        "latency_s": 1.429
+      },
+      {
+        "id": "heldout-05-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the density of water is one thousand kilograms per cubic meter",
+        "latency_s": 1.233
+      },
+      {
+        "id": "heldout-06-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "weakest",
+            "strongest",
+            [
+              0.88,
+              2.18
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the magnetic field is strongest at the polls",
+        "latency_s": 2.166
+      },
+      {
+        "id": "heldout-06-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "weakest",
+            "strongest",
+            [
+              0.67,
+              1.85
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the magnetic field is strongest at the polls",
+        "latency_s": 2.817
+      },
+      {
+        "id": "heldout-07-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the output voltage is twelve volts",
+        "latency_s": 1.296
+      },
+      {
+        "id": "heldout-07-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the output voltage is twelve volts",
+        "latency_s": 1.217
+      },
+      {
+        "id": "heldout-08-david",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "A",
+            "volt",
+            [
+              1.3,
+              2.54
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the output voltage is twelve volts",
+        "latency_s": 2.564
+      },
+      {
+        "id": "heldout-08-zira",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "unit",
+            "A",
+            "volt",
+            [
+              1.09,
+              2.27
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the output voltage is twelve volts",
+        "latency_s": 2.374
+      },
+      {
+        "id": "heldout-09-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "light travels faster in a or than in glass",
+        "latency_s": 1.358
+      },
+      {
+        "id": "heldout-09-zira",
+        "planted": [],
+        "flags": [
+          [
+            "term",
+            "in air",
+            "and there",
+            [
+              0.73,
+              1.7
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "light travels faster and there than in glass",
+        "latency_s": 3.013
+      },
+      {
+        "id": "heldout-10-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "halves",
+            "doubles",
+            [
+              0.46,
+              1.55
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance doubles when the length doubles",
+        "latency_s": 2.828
+      },
+      {
+        "id": "heldout-10-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "halves",
+            "devils",
+            [
+              0.31,
+              1.34
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance devils when the length devils",
+        "latency_s": 2.223
+      },
+      {
+        "id": "heldout-11-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.16,
+              1.19
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "sound cannot travel through a vacuum",
+        "latency_s": 2.386
+      },
+      {
+        "id": "heldout-11-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.1,
+              1.13
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "sound cannot travel through a vacuum",
+        "latency_s": 2.627
+      },
+      {
+        "id": "heldout-12-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the spring constant is two hundred newton's per meter",
+        "latency_s": 1.383
+      },
+      {
+        "id": "heldout-12-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the spring constant is two hundred newton's per meter",
+        "latency_s": 1.168
+      },
+      {
+        "id": "heldout-13-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "momentum is conserved in all collisions",
+        "latency_s": 1.035
+      },
+      {
+        "id": "heldout-13-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "momentum is conserved in all collisions",
+        "latency_s": 1.104
+      }
+    ]
+  },
+  "gate_d_heldout2": {
+    "n_turns": 32,
+    "planted_turns": 16,
+    "control_turns": 16,
+    "planted_recall": 0.875,
+    "planted_recall_95ci": [
+      0.64,
+      0.965
+    ],
+    "category_match_rate": 0.75,
+    "control_false_positive_rate": 0.188,
+    "control_fp_95ci": [
+      0.066,
+      0.43
+    ],
+    "extra_flags_on_planted_turns": 0,
+    "clips_at_most_4s": "14/14",
+    "asr_wer_vs_spoken_mean": 0.135,
+    "latency_mean_s": 1.823,
+    "latency_max_s": 2.654,
+    "real_time_factor_mean": 0.579,
+    "rows": [
+      {
+        "id": "heldout2-00-david",
+        "planted": [],
+        "flags": [
+          [
+            "unit",
+            "nanometres",
+            "nano metre",
+            [
+              1.33,
+              2.84
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the wavelength is six hundred nano meters",
+        "latency_s": 2.172
+      },
+      {
+        "id": "heldout2-00-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the wavelength as six hundred nana meters",
+        "latency_s": 2.195
+      },
+      {
+        "id": "heldout2-01-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "ohm's law relates voltage current and resistance",
+        "latency_s": 1.203
+      },
+      {
+        "id": "heldout2-01-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "ohm's law relates voltage current and resistance",
+        "latency_s": 1.115
+      },
+      {
+        "id": "heldout2-02-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the pendulum completes one oscillation every two seconds",
+        "latency_s": 1.261
+      },
+      {
+        "id": "heldout2-02-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the pendulum completes one oscillation every two seconds",
+        "latency_s": 1.217
+      },
+      {
+        "id": "heldout2-03-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "catalysts lower the activation energy of a reaction",
+        "latency_s": 1.079
+      },
+      {
+        "id": "heldout2-03-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "catalysts lower the activation energy of a reaction",
+        "latency_s": 1.147
+      },
+      {
+        "id": "heldout2-04-david",
+        "planted": [],
+        "flags": [
+          [
+            "unit",
+            "kilonewtons",
+            "kilo newton",
+            [
+              1.36,
+              2.87
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the been carries a load of five kilo newton's",
+        "latency_s": 2.337
+      },
+      {
+        "id": "heldout2-04-zira",
+        "planted": [],
+        "flags": [
+          [
+            "unit",
+            "kilonewtons",
+            "kilo newton",
+            [
+              1.09,
+              2.51
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the beam carries a load of five kilo newton's",
+        "latency_s": 2.067
+      },
+      {
+        "id": "heldout2-05-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "water boils at one hundred degrees celsius at sea level",
+        "latency_s": 1.317
+      },
+      {
+        "id": "heldout2-05-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "water boils at one hundred degrees celsius at sea level",
+        "latency_s": 1.156
+      },
+      {
+        "id": "heldout2-06-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the capacitor stores energy and it's electric field",
+        "latency_s": 1.203
+      },
+      {
+        "id": "heldout2-06-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "the capacitor stores energy and it's electric field",
+        "latency_s": 1.206
+      },
+      {
+        "id": "heldout2-07-david",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "refraction occurs when like changes speed",
+        "latency_s": 2.334
+      },
+      {
+        "id": "heldout2-07-zira",
+        "planted": [],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "refraction occurs when light changes speed",
+        "latency_s": 1.059
+      },
+      {
+        "id": "heldout2-08-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "60 nanometres",
+            "600 nano metre",
+            [
+              0.61,
+              2.84
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the wavelength is six hundred nano meters",
+        "latency_s": 2.166
+      },
+      {
+        "id": "heldout2-08-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "is 60 nanometres",
+            "as 600 nana metre",
+            [
+              0.31,
+              2.33
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the wavelength as six hundred nana meters",
+        "latency_s": 2.131
+      },
+      {
+        "id": "heldout2-09-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "raise",
+            "lower",
+            [
+              0.31,
+              1.34
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "catalysts lower the activation energy of a reaction",
+        "latency_s": 2.245
+      },
+      {
+        "id": "heldout2-09-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "raise",
+            "lower",
+            [
+              0.28,
+              1.25
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "catalysts lower the activation energy of a reaction",
+        "latency_s": 2.383
+      },
+      {
+        "id": "heldout2-10-david",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.73,
+              1.67
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the capacitor does not conduct direct current",
+        "latency_s": 2.283
+      },
+      {
+        "id": "heldout2-10-zira",
+        "planted": [
+          "negation"
+        ],
+        "flags": [
+          [
+            "negation",
+            "",
+            "not",
+            [
+              0.61,
+              1.55
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the capacitor does not conduct direct current",
+        "latency_s": 2.261
+      },
+      {
+        "id": "heldout2-11-david",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "term",
+            "",
+            "kilo",
+            [
+              1.36,
+              2.36
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the been carries a load of five kilo newton's",
+        "latency_s": 2.384
+      },
+      {
+        "id": "heldout2-11-zira",
+        "planted": [
+          "unit"
+        ],
+        "flags": [
+          [
+            "term",
+            "",
+            "kilo",
+            [
+              1.09,
+              2.09
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the beam carries a load of five kilo newton's",
+        "latency_s": 2.097
+      },
+      {
+        "id": "heldout2-12-david",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "divided by",
+            "times",
+            [
+              1.0,
+              2.09
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "momentum equals mass times velocity",
+        "latency_s": 2.215
+      },
+      {
+        "id": "heldout2-12-zira",
+        "planted": [
+          "operator"
+        ],
+        "flags": [
+          [
+            "operator",
+            "divided by",
+            "times",
+            [
+              0.76,
+              1.76
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "momentum equals mass times velocity",
+        "latency_s": 2.219
+      },
+      {
+        "id": "heldout2-13-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "freezes",
+            "boils",
+            [
+              0.13,
+              1.22
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "water boils at one hundred degrees celsius at sea level",
+        "latency_s": 2.654
+      },
+      {
+        "id": "heldout2-13-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [
+          [
+            "term",
+            "freezes",
+            "boils",
+            [
+              0.04,
+              1.1
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "water boils at one hundred degrees celsius at sea level",
+        "latency_s": 2.428
+      },
+      {
+        "id": "heldout2-14-david",
+        "planted": [
+          "term"
+        ],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "refraction occurs when like changes speed",
+        "latency_s": 2.215
+      },
+      {
+        "id": "heldout2-14-zira",
+        "planted": [
+          "term"
+        ],
+        "flags": [],
+        "status": "strong_correspondence",
+        "asr": "refraction occurs when light changes speed",
+        "latency_s": 1.042
+      },
+      {
+        "id": "heldout2-15-david",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "20",
+            "12",
+            [
+              0.64,
+              1.719
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance is twelve ohms",
+        "latency_s": 1.877
+      },
+      {
+        "id": "heldout2-15-zira",
+        "planted": [
+          "numeric"
+        ],
+        "flags": [
+          [
+            "numeric",
+            "20",
+            "12",
+            [
+              0.43,
+              1.46
+            ],
+            false
+          ]
+        ],
+        "status": "check_passage",
+        "asr": "the resistance is twelve ohms",
+        "latency_s": 1.673
+      }
+    ]
+  },
+  "gate_c_passive": {
+    "audio_minutes": 14.2,
+    "utterances": 133,
+    "false_wakes": 0,
+    "false_wakes_per_hour": 0.0,
+    "examples": []
+  }
+}

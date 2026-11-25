@@ -18,9 +18,9 @@ from dataclasses import dataclass, field
 from typing import Protocol
 
 from swarlekhak.contracts import ReviewStatus
-from swarlekhak.engines.normalize import NORMALIZER_VERSION, UNITS, Tok, is_number, normalize_text, normalize_words
+from swarlekhak.engines.normalize import NORMALIZER_VERSION, Tok, is_number, is_unit, normalize_text, normalize_words
 
-ALIGNER_VERSION = "levenshtein-token-v2"
+ALIGNER_VERSION = "levenshtein-token-v3+nbest+constrained"
 
 NEGATIONS = {"not", "no", "never", "nor", "none", "nothing", "neither", "without", "nobody", "nowhere"}
 OPERATORS = {"plus", "minus", "times", "divided", "equals", "greater", "less", "power", "squared",
@@ -156,7 +156,7 @@ def categorize(written: list[str], heard: list[str]) -> str | None:
         return "numeric"
     if set(written) & NEGATIONS ^ set(heard) & NEGATIONS:
         return "negation"
-    if any(w in UNITS for w in both):
+    if any(is_unit(w) for w in both):
         return "unit"
     content = [w for w in both if w not in STOPWORDS]
     if not content:
@@ -184,7 +184,8 @@ class ProofEngine:
         return {
             "asr": getattr(self.transcriber, "version", "none"),
             "alignment": ALIGNER_VERSION,
-            "timestamps": "asr-word-timestamps",
+            "timestamps": "asr-word-timestamps; text-constrained (grammar) alignment for unheard spans",
+            "rescoring": "n-best: a flag survives only if no recogniser alternative reads like the text",
             "normalizer": NORMALIZER_VERSION,
             "sensitivity": self.sensitivity,
         }
@@ -205,8 +206,86 @@ class ProofEngine:
                                       error=f"ASR failed: {exc}", duration_s=duration)
         res = self.compare(written_text, hyp.get("words", []), duration)
         res.hypothesis = hyp.get("text", "")
+        if res.discrepancies and hasattr(self.transcriber, "alternatives"):
+            try:
+                res = self._rescore_nbest(pcm16k, written_text, res, duration)
+            except Exception:  # rescoring is an optimisation; never lose the primary result
+                pass
+        if any(d.approximate for d in res.discrepancies) and hasattr(self.transcriber, "constrained_times"):
+            try:
+                self._refine_clips(pcm16k, written_text, res, duration)
+            except Exception:
+                pass
         res.elapsed_s = time.perf_counter() - t_start
         return res
+
+    def _rescore_nbest(self, pcm16k, written_text: str, res: VerificationResult, duration: float):
+        """Most charitable reading: per segment pick the recogniser alternative closest to the written text.
+        If the text is a plausible reading of the audio, the disagreement was the recogniser's top guess,
+        not the text. Flags that persist in the closest reading are kept."""
+        segs = self.transcriber.alternatives(pcm16k)
+        if not segs:
+            return res
+        ref = [t.text for t in normalize_text(written_text)]
+        chosen: list[dict] = []
+        for alts in segs:
+            best = min(alts, key=lambda ws: (
+                word_error_rate(ref, [t.text for t in normalize_words(chosen + ws)])
+                if ref else 0.0, alts.index(ws)))
+            chosen += best
+        alt = self.compare(written_text, chosen, duration)
+        if len(alt.discrepancies) >= len(res.discrepancies):
+            return res
+        kept = []
+        for d in res.discrepancies:   # keep original flags (with confidences) that still overlap a flag
+            if any(a.span[0] <= d.span[1] and d.span[0] <= a.span[1] for a in alt.discrepancies):
+                kept.append(d)
+        res.discrepancies = kept
+        res.status = ReviewStatus.CHECK if kept else ReviewStatus.STRONG
+        return res
+
+    def _refine_clips(self, pcm16k, written_text: str, res: VerificationResult, duration: float) -> None:
+        """Locate written-but-unheard spans with text-constrained alignment instead of padded neighbours."""
+        from swarlekhak.engines.numbers import number_to_words
+        toks = normalize_text(written_text)
+        words: list[str] = []
+        owner: list[int] = []
+        for i, t in enumerate(toks):
+            ws = number_to_words(t.text) if is_number(t.text) else [t.text]
+            words += ws
+            owner += [i] * len(ws)
+        aligned = self.transcriber.constrained_times(pcm16k, words)
+        # map aligned words back to token indices in order (grammar output follows the written order)
+        times: dict[int, tuple[float, float]] = {}
+        j = 0
+        for w in aligned:
+            while j < len(words) and words[j] != w["word"]:
+                j += 1
+            if j >= len(words):
+                break
+            k = owner[j]
+            a, b = times.get(k, (w["start"], w["end"]))
+            times[k] = (min(a, w["start"]), max(b, w["end"]))
+            j += 1
+        for d in res.discrepancies:
+            if not d.approximate:
+                continue
+            idx = [i for i, t in enumerate(toks) if t.start >= d.span[0] and t.end <= d.span[1] and i in times]
+            if not idx:
+                # deletion with no written tokens: use the aligned neighbours either side of the gap
+                before = [times[i] for i, t in enumerate(toks) if t.end <= d.span[0] and i in times]
+                after = [times[i] for i, t in enumerate(toks) if t.start >= d.span[1] and i in times]
+                if before and after:
+                    c0, c1 = before[-1][1], after[0][0]
+                else:
+                    continue
+            else:
+                c0, c1 = times[idx[0]][0], times[idx[-1]][1]
+            c0 = max(0.0, c0 - self.clip_pad_s)
+            c1 = min(duration, c1 + self.clip_pad_s)
+            if 0 < c1 - c0 <= 6.0:
+                d.clip = (round(c0, 3), round(c1, 3))
+                d.approximate = False
 
     def compare(self, written_text: str, words: list[dict], duration: float) -> VerificationResult:
         ref = normalize_text(written_text)

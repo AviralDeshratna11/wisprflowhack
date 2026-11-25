@@ -21,7 +21,7 @@ excludes = [
     "PySide6.QtWebEngineCore", "PySide6.QtWebEngineWidgets", "PySide6.QtWebEngineQuick", "PySide6.Qt3DCore",
     "PySide6.Qt3DRender", "PySide6.QtQuick", "PySide6.QtQml", "PySide6.QtCharts", "PySide6.QtDataVisualization",
     "PySide6.QtMultimedia", "PySide6.QtPdf", "PySide6.QtBluetooth", "PySide6.QtLocation", "PySide6.QtSql",
-    "tkinter", "pytest", "PyInstaller",
+    "tkinter", "pytest", "PyInstaller", "fitz", "pymupdf",
 ]
 
 a = Analysis(
